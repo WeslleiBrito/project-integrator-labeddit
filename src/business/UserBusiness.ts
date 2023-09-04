@@ -35,8 +35,10 @@ export class UserBusiness {
             name,
             email,
             hashPassword,
-            USER_ROLES.NORMAL
+            USER_ROLES.NORMAL,
+            new Date().toISOString()
         )
+
         
         if(newUser.getRole() === USER_ROLES.MASTER){
             const masterExist = await this.userDatabase.findRole(newUser.getRole())
@@ -46,7 +48,16 @@ export class UserBusiness {
             }
         }
         
-        await this.userDatabase.signup(newUser.getUserModel())
+        await this.userDatabase.signup(
+            {
+                id: newUser.getId(),
+                name: newUser.getName(),
+                email: newUser.getEmail(),
+                password: newUser.getPassword(),
+                role: newUser.getRole(),
+                created_at: newUser.getCreatedAt()
+            }
+        )
         
         const token = this.tokenManager.createToken(
             {

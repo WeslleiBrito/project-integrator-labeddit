@@ -7,6 +7,13 @@ export enum USER_ROLES {
 }
 
 export interface UserModel extends InputSignupDTO{
-    id: string
-    role: string
+    id: string,
+    role: USER_ROLES, 
+    createdAt: string
+}
+
+export interface UserDB extends InputSignupDTO {
+    id: string,
+    role: USER_ROLES,
+    created_at: string
 }

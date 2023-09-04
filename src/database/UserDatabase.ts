@@ -1,34 +1,41 @@
-import { UserModel } from "../types/types"
+import { UserDB } from "../types/types"
 import { BaseDatabase } from "./BaseDatabase"
 
 
-export class UserDatabase extends BaseDatabase {
-    public static TABLE_USER = "users"
+export class UserDatabase extends BaseDatabase implements UserDatabese {
+    
+    public static TABLE_USER: string = "users"
 
-    public signup = async (input: UserModel): Promise<void> => {
+    public signup = async (input: UserDB): Promise<void> => {
 
         await UserDatabase.connection(UserDatabase.TABLE_USER).insert(input)
     }
 
-    public findUserById = async (id: string): Promise<UserModel | undefined> => {
+    public findUserById = async (id: string): Promise<UserDB | undefined> => {
         
-        const [result]: UserModel[] | undefined[] = await UserDatabase.connection(UserDatabase.TABLE_USER).where({id})
+        const [result]: UserDB[] | undefined[] = await UserDatabase.connection(UserDatabase.TABLE_USER).where({id})
 
         return result
     }
     
-    public findUserByEmail = async (email: string): Promise<UserModel | undefined> => {
+    public findUserByEmail = async (email: string): Promise<UserDB | undefined> => {
         
-        const [result]: UserModel[] | undefined[] = await UserDatabase.connection(UserDatabase.TABLE_USER).where({email})
+        const [result]: UserDB[] | undefined[] = await UserDatabase.connection(UserDatabase.TABLE_USER).where({email})
        
         return result
     }
 
-    public findRole = async (role: string): Promise<UserModel | undefined> => {
+    public findRole = async (role: string): Promise<UserDB | undefined> => {
         
-        const [result]: UserModel[] | undefined[] = await UserDatabase.connection(UserDatabase.TABLE_USER).where({role})
+        const [result]: UserDB[] | undefined[] = await UserDatabase.connection(UserDatabase.TABLE_USER).where({role})
 
         return result
     }
 }
 
+export interface UserDatabese {
+    signup (input: UserDB): Promise<void>
+    findUserById(id: string): Promise<UserDB | undefined>
+    findUserByEmail(email: string): Promise<UserDB | undefined>
+    findRole(role: string): Promise<UserDB | undefined>
+}

@@ -6,7 +6,8 @@ export class User {
         private name: string,
         private email: string,
         private password: string,
-        private role: USER_ROLES
+        private role: USER_ROLES,
+        private createdAt: string
     ) {}
 
     public getId = (): string => {
@@ -29,13 +30,18 @@ export class User {
         return this.role
     }
 
+    public getCreatedAt = (): string => {
+        return this.createdAt
+    }
+
     public getUserModel = (): UserModel => {
         return {
             id: this.id,
             name: this.name,
             email: this.email,
             password: this.password,
-            role: this.role
+            role: this.role,
+            createdAt: this.createdAt
         }
     }
 

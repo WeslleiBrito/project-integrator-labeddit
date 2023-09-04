@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS users (
     name TEXT NOT NULL,
     role TEXT DEFAULT('NORMAL') NOT NULL,
     email TEXT NOT NULL UNIQUE,
-    password TEXT NOT NULL
+    password TEXT NOT NULL, 
+	created_at TEXT DEFAULT(DATETIME()) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS comments_posts (
@@ -33,4 +34,4 @@ updated_at TEXT DEFAULT(DATETIME()) NOT NULL
 );
 
 
-DROP TABLE IF EXISTS comments;
+-- DROP TABLE IF EXISTS comments;
