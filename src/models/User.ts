@@ -1,12 +1,17 @@
-import { USER_ROLES } from "../types/types";
+import { USER_ROLES, UserModel } from "../types/types";
 
 export class User {
     constructor(
+        private id: string,
         private name: string,
         private email: string,
         private password: string,
         private role: USER_ROLES
     ) {}
+
+    public getId = (): string => {
+        return this.id
+    }
 
     public getName = (): string => {
         return this.name
@@ -20,8 +25,18 @@ export class User {
         return this.password
     }
 
-    public getRole = (): string => {
+    public getRole = (): USER_ROLES => {
         return this.role
+    }
+
+    public getUserModel = (): UserModel => {
+        return {
+            id: this.id,
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            role: this.role
+        }
     }
 
     public setName = (newName: string): void => {

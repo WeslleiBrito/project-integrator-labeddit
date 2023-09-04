@@ -1,11 +1,12 @@
 import { InputSignupDTO } from "../dtos/InputSignup.dto";
 
 export enum USER_ROLES {
-    NORMAL = "NORMAL",
-    ADMIN = "ADMIN"
+    ADMIN = "ADMIN",
+    MASTER = "MASTER",
+    NORMAL = "NORMAL"
 }
 
-export interface InputSignupDB extends InputSignupDTO{
+export interface UserModel extends InputSignupDTO{
     id: string
     role: string
 }
