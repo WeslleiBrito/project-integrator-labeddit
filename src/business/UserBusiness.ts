@@ -1,6 +1,9 @@
 import { UserDatabase } from "../database/UserDatabase";
+import { InputLoginDTO, OutputLoginDTO } from "../dtos/InputLogin.dto";
 import { InputSignupDTO, OutputSignupDTO } from "../dtos/InputSignup.dto";
 import { ConflictError } from "../errors/ConflictError";
+import { NotFoundError } from "../errors/NotFoundError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { User } from "../models/User";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
@@ -63,5 +66,35 @@ export class UserBusiness {
             token
         }
         
+    }
+
+    public login = async (input: InputLoginDTO): Promise<OutputLoginDTO> => {
+        
+        const {email, password} = input
+
+        const account = await this.userDatabase.findUserByEmail(email)
+
+        if(!account){
+            throw new NotFoundError("Email ou senha inválida.")
+        }
+
+        const passwordValid = await this.hashManager.compare(password, account.password)
+
+        if(!passwordValid){
+            throw new UnauthorizedError("Email ou senha inválida.")
+        }
+
+        const token = this.tokenManager.createToken(
+            {
+                id: account.id,
+                name: account.name,
+                role: account.role
+            }
+        )
+        
+        return {
+            token
+        }
+
     }
 }
