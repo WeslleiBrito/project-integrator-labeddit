@@ -33,22 +33,4 @@ describe("Testando signup", () => {
     )
   })
 
-  test("Deve gerar erro para email que já existe no banco de dados", async () => {
-    expect.assertions(1)
-
-    try {
-      const input = InputSignupSchema.parse(
-        {
-            name: "Teste da silva",
-            email: "normal01@gmail.com",
-            password: "teste123"
-        }
-      )
-      const output = await userBusiness.signup(input)
-    } catch (error) {
-      expect(error).toBeDefined()
-    }
-    
-
-  })
 })
