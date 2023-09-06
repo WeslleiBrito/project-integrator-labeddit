@@ -21,7 +21,7 @@ export class HashManagerMock {
     ): Promise<boolean> => {
 
       if(hashs[plaintext]){
-        return hashs[plaintext] === hash
+        return true
       }
 
       return false

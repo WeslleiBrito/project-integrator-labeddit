@@ -82,7 +82,5 @@ export class UserDatabaseMock extends BaseDatabase implements UserDatabase{
 
         return find
     }
-
-    
     
 }
