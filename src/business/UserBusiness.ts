@@ -39,15 +39,6 @@ export class UserBusiness {
             new Date().toISOString()
         )
 
-        
-        if(newUser.getRole() === USER_ROLES.MASTER){
-            const masterExist = await this.userDatabase.findRole(newUser.getRole())
-
-            if(masterExist){
-                throw new ConflictError("Não é permitido mais de um usuário master")
-            }
-        }
-        
         await this.userDatabase.signup(
             {
                 id: newUser.getId(),

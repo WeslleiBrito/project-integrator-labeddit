@@ -1,10 +1,18 @@
-import { tokens } from "./TokenManagerMock"
+
+const hashs: {[key: string]: string} = {
+  normal1: "hashMockNormal01",
+  normal2: "hashMockNormal02",
+  normal3: "hashMockNormal03",
+  admin1: "hashMockAdminl01",
+  admin2: "hashMockAdminl02",
+  master: "hashMockMaster",
+}
 
 export class HashManagerMock {
     public hash = async (
       plaintext: string
     ): Promise<string> => {
-      return "hash-mock"
+      return "hashMock"
     }
 
     public compare = async (
@@ -12,16 +20,10 @@ export class HashManagerMock {
       hash: string
     ): Promise<boolean> => {
 
-      
-      switch(plaintext) {
-        case "normal1":
-          return hash === tokens.idMockNormal02
-
-        case "normal12":
-          return hash === tokens.idMockNormal02
-          
-        default:
-          return false
+      if(hashs[plaintext]){
+        return hashs[plaintext] === hash
       }
+
+      return false
     }
 }

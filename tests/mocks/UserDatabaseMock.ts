@@ -6,7 +6,7 @@ const userMock: UserDB[] = [
 
     {
         id: "idMockNormal01",
-        name: "normal 01",
+        name: "Normal 01",
         email: "normal01@gmail.com",
         password: "normal1",
         role: USER_ROLES.NORMAL,
@@ -14,7 +14,7 @@ const userMock: UserDB[] = [
     },
     {
         id: "idMockNormal02",
-        name: "normal 02",
+        name: "Normal 02",
         email: "normal02@gmail.com",
         password: "normal2",
         role: USER_ROLES.NORMAL, 
@@ -22,7 +22,7 @@ const userMock: UserDB[] = [
     },
     {
         id: "idMockNormal03",
-        name: "normal 03",
+        name: "Normal 03",
         email: "normal03@gmail.com",
         password: "normal3",
         role: USER_ROLES.NORMAL,
@@ -30,7 +30,7 @@ const userMock: UserDB[] = [
     },
     {
         id: "idMockAdmin01",
-        name: "admin 01",
+        name: "Admin 01",
         email: "admin01@gmail.com",
         password: "admin1",
         role: USER_ROLES.ADMIN,
@@ -38,7 +38,7 @@ const userMock: UserDB[] = [
     },
     {
         id: "idMockAdmin02",
-        name: "admin 02",
+        name: "Admin 02",
         email: "admin02@gmail.com",
         password: "admin2",
         role: USER_ROLES.ADMIN,
@@ -46,7 +46,7 @@ const userMock: UserDB[] = [
     },
     {
         id: "idMockMaster",
-        name: "master",
+        name: "Master",
         email: "master@gmail.com",
         password: "master",
         role: USER_ROLES.ADMIN,
@@ -71,14 +71,14 @@ export class UserDatabaseMock extends BaseDatabase implements UserDatabase{
 
     public findUserByEmail = async(email: string): Promise<UserDB | undefined> => {
         
-        const find: UserDB | undefined = await userMock.find(user => user.id === email) 
+        const find: UserDB | undefined = await userMock.find(user => user.email === email) 
 
         return find
     }
 
     public findRole = async(role: string): Promise<UserDB | undefined> => {
 
-        const find: UserDB | undefined = await userMock.find(user => user.id === role) 
+        const find: UserDB | undefined = await userMock.find(user => user.role === role) 
 
         return find
     }

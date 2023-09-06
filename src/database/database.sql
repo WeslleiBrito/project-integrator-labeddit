@@ -34,4 +34,4 @@ updated_at TEXT DEFAULT(DATETIME()) NOT NULL
 );
 
 
--- DROP TABLE IF EXISTS comments;
+-- DROP TABLE IF EXISTS users;
