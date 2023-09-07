@@ -83,4 +83,13 @@ export class UserDatabaseMock extends BaseDatabase implements UserDatabase{
         return find
     }
     
+    public editAccount = async (input: {id: string, name: string, password: string}): Promise<void> => {
+
+        const user = userMock.find(user => user.id === input.id)
+
+        if(user){
+            user.name = input.name
+            user.password = input.password
+        }
+    }
 }

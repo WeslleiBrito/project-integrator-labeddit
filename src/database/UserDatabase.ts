@@ -37,7 +37,7 @@ export class UserDatabase extends BaseDatabase implements UserDatabaseI {
         const {id, name, password} = input
 
         await UserDatabase.connection(UserDatabase.TABLE_USER).update({name, password}).where({id})
-        
+
     }
 }
 
@@ -46,5 +46,5 @@ export interface UserDatabaseI {
     findUserById(id: string): Promise<UserDB | undefined>
     findUserByEmail(email: string): Promise<UserDB | undefined>
     findRole(role: string): Promise<UserDB | undefined>
-    editAccount(input: UserDB): Promise<void>
+    editAccount(input: {id: string, name: string, password: string}): Promise<void>
 }
