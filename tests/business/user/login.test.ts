@@ -7,13 +7,14 @@ import { IdGeneratorMock } from "../../mocks/IdGeneratorMock"
 import { TokenManagerMock } from "../../mocks/TokenManagerMock"
 import { UserDatabaseMock } from "../../mocks/UserDatabaseMock"
 
+const userBusiness = new UserBusiness(
+  new UserDatabaseMock(),
+  new IdGeneratorMock(),
+  new HashManagerMock(),
+  new TokenManagerMock()
+)
+
 describe("Testando signup", () => {
-  const userBusiness = new UserBusiness(
-    new UserDatabaseMock(),
-    new IdGeneratorMock(),
-    new HashManagerMock(),
-    new TokenManagerMock()
-  )
 
   test("Deve retornar um token", async () => {
 

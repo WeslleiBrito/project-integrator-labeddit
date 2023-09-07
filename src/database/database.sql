@@ -34,4 +34,4 @@ updated_at TEXT DEFAULT(DATETIME()) NOT NULL
 );
 
 
--- DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users;

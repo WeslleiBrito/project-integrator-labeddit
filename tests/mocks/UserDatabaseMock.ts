@@ -64,21 +64,21 @@ export class UserDatabaseMock extends BaseDatabase implements UserDatabase{
    
     public findUserById = async (id: string): Promise<UserDB | undefined> => {
 
-        const find: UserDB | undefined = await userMock.find(user => user.id === id) 
+        const find: UserDB | undefined = userMock.find(user => user.id === id) 
 
         return find
     }
 
     public findUserByEmail = async(email: string): Promise<UserDB | undefined> => {
         
-        const find: UserDB | undefined = await userMock.find(user => user.email === email) 
+        const find: UserDB | undefined = userMock.find(user => user.email === email) 
 
         return find
     }
 
     public findRole = async(role: string): Promise<UserDB | undefined> => {
 
-        const find: UserDB | undefined = await userMock.find(user => user.role === role) 
+        const find: UserDB | undefined = userMock.find(user => user.role === role) 
 
         return find
     }
