@@ -1,3 +1,4 @@
+import { InputDeleteAccountDTO } from "../dtos/InputDeleteAccount.test"
 import { UserDB } from "../types/types"
 import { BaseDatabase } from "./BaseDatabase"
 
@@ -39,6 +40,12 @@ export class UserDatabase extends BaseDatabase implements UserDatabaseI {
         await UserDatabase.connection(UserDatabase.TABLE_USER).update({name, password}).where({id})
 
     }
+
+    public deleteAccount = async (id: string): Promise<void> => {
+
+        await UserDatabase.connection(UserDatabase.TABLE_USER).del().where({id})
+
+    }
 }
 
 export interface UserDatabaseI {
@@ -47,4 +54,5 @@ export interface UserDatabaseI {
     findUserByEmail(email: string): Promise<UserDB | undefined>
     findRole(role: string): Promise<UserDB | undefined>
     editAccount(input: {id: string, name: string, password: string}): Promise<void>
+    deleteAccount(input: string): Promise<void>
 }

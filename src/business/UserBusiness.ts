@@ -1,4 +1,5 @@
 import { UserDatabase } from "../database/UserDatabase";
+import { InputDeleteAccountDTO, OutputDeleteAccountDTO } from "../dtos/InputDeleteAccount.test";
 import { InputEditAccountDTO, OutputEditAccountDTO } from "../dtos/InputEditAccount.dto";
 import { InputLoginDTO, OutputLoginDTO } from "../dtos/InputLogin.dto";
 import { InputSignupDTO, OutputSignupDTO } from "../dtos/InputSignup.dto";
@@ -141,10 +142,42 @@ export class UserBusiness implements UserBusinessI{
             message: "Editado com sucesso!"
         }
     }
+
+    public deleteAccount = async (input: InputDeleteAccountDTO): Promise<OutputDeleteAccountDTO> => {
+        
+        const {id, token} = input
+
+        const tokenIsValid = this.tokenManager.validateToken(token)
+
+        if(!tokenIsValid){
+            throw new BadRequestError("Token inválido, renove seu token refazendo o login.")
+        }
+
+        const account = await this.userDatabase.findUserById(id)
+
+        if(!account){
+            throw new NotFoundError("O id informado não existe, verifique e tente novamente.")
+        }
+
+        if(tokenIsValid.role === USER_ROLES.NORMAL && tokenIsValid.id !== id){
+            throw new BadRequestError("Sua conta não possui os privelégios para deletar esta conta.")
+        }
+
+        if(tokenIsValid.role === USER_ROLES.ADMIN && (account.role === USER_ROLES.ADMIN || USER_ROLES.MASTER) && tokenIsValid.id !== id){
+            throw new BadRequestError("Um usuário admin não pode excluir outra conta admin ou a conta master.")
+        }
+
+        await this.userDatabase.deleteAccount(id)
+
+        return {
+            message: "Conta deletada com sucesso!"
+        }
+    }
 }
 
 export interface UserBusinessI {
     signup(input: InputSignupDTO): Promise<OutputSignupDTO>
     login(input: InputLoginDTO): Promise<OutputLoginDTO>
     editAccount(input: InputEditAccountDTO): Promise<OutputEditAccountDTO>
+    deleteAccount(input: InputDeleteAccountDTO): Promise<OutputDeleteAccountDTO>
 }
