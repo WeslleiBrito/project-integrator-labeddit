@@ -92,4 +92,10 @@ export class UserDatabaseMock extends BaseDatabase implements UserDatabase{
             user.password = input.password
         }
     }
+
+    public deleteAccount = async (id: string): Promise<void> => {
+        const account = userMock.findIndex(user => user.id === id) as number
+
+        userMock.splice(account, 1)
+    }
 }

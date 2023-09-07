@@ -6,8 +6,7 @@ import { HashManagerMock } from "../../mocks/HashManagerMock"
 import { IdGeneratorMock } from "../../mocks/IdGeneratorMock"
 import { TokenManagerMock } from "../../mocks/TokenManagerMock"
 import { UserDatabaseMock } from "../../mocks/UserDatabaseMock"
-import { BadRequestError } from "../../../src/errors/BadRequestError"
-import { NotFoundError } from "../../../src/errors/NotFoundError"
+
 
 const userBusiness = new UserBusiness(
   new UserDatabaseMock(),

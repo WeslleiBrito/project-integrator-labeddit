@@ -163,7 +163,7 @@ export class UserBusiness implements UserBusinessI{
             throw new BadRequestError("Sua conta não possui os privelégios para deletar esta conta.")
         }
 
-        if(tokenIsValid.role === USER_ROLES.ADMIN && (account.role === USER_ROLES.ADMIN || USER_ROLES.MASTER) && tokenIsValid.id !== id){
+        if(tokenIsValid.role === USER_ROLES.ADMIN && (account.role === USER_ROLES.ADMIN || account.role === USER_ROLES.MASTER) && tokenIsValid.id !== id){
             throw new BadRequestError("Um usuário admin não pode excluir outra conta admin ou a conta master.")
         }
 
