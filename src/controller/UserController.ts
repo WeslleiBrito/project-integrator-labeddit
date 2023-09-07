@@ -4,6 +4,7 @@ import { ZodError } from "zod";
 import { BaseError } from "../errors/BaseError";
 import { InputSignupSchema, OutputSignupDTO } from "../dtos/InputSignup.dto";
 import { InputLoginSchema } from "../dtos/InputLogin.dto";
+import { InputEditAccountSchema } from "../dtos/InputEditAccount.dto";
 
 
 export class UserController {
@@ -50,6 +51,32 @@ export class UserController {
             )
 
             const output = await this.userBusiness.login(input)
+
+            res.status(200).send(output)
+
+        } catch (error) {
+            if(error instanceof ZodError){
+                res.status(400).send(error.issues)
+            }else if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.send("Erro inesperado\n " + error)
+            }
+        }
+    }
+
+    public editAccount = async (req: Request, res: Response) => {
+        try {
+            const input = InputEditAccountSchema.parse(
+                {
+                    token: req.headers.authorization,
+                    id: req.params.id,
+                    name: req.body.name,
+                    password: req.body.password
+                }
+            )
+
+            const output = await this.userBusiness.editAccount(input)
 
             res.status(200).send(output)
 

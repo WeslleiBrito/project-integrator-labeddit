@@ -1,6 +1,8 @@
 import { UserDatabase } from "../database/UserDatabase";
+import { InputEditAccountDTO, OutputEditAccountDTO } from "../dtos/InputEditAccount.dto";
 import { InputLoginDTO, OutputLoginDTO } from "../dtos/InputLogin.dto";
 import { InputSignupDTO, OutputSignupDTO } from "../dtos/InputSignup.dto";
+import { BadRequestError } from "../errors/BadRequestError";
 import { ConflictError } from "../errors/ConflictError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
@@ -8,10 +10,10 @@ import { User } from "../models/User";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
-import { USER_ROLES } from "../types/types";
+import { USER_ROLES} from "../types/types";
 
 
-export class UserBusiness {
+export class UserBusiness implements UserBusinessI{
     constructor (
         private userDatabase: UserDatabase,
         private idGenerator: IdGenerator,
@@ -97,4 +99,52 @@ export class UserBusiness {
         }
 
     }
+
+    public editAccount = async (input: InputEditAccountDTO): Promise<OutputEditAccountDTO> => {
+        const {token, id, password, name} = input
+
+        const tokenIsValid = this.tokenManager.validateToken(token)
+
+        if(!tokenIsValid){
+            throw new UnauthorizedError("Token inválido")
+        }
+
+        const account = await this.userDatabase.findUserById(id)
+
+        if(!account){
+            throw new NotFoundError("A conta informada não existe")
+        }
+        
+        if(tokenIsValid.id !== account.id){
+            throw new BadRequestError("Apenas o proprietário da conta tem permissão para alterar alguma informação.")
+        }
+
+        const newUser = new User(
+            account.id,
+            account.name,
+            account.email,
+            account.password,
+            account.role,
+            account.created_at
+        )
+
+        newUser.setName(name || newUser.getName())
+        newUser.setPassword(password || newUser.getPassword())
+
+        await this.userDatabase.editAccount({
+            id: newUser.getId(),
+            name: newUser.getName(),
+            password: newUser.getPassword()
+        })
+
+        return {
+            message: "Editado com sucesso!"
+        }
+    }
+}
+
+export interface UserBusinessI {
+    signup(input: InputSignupDTO): Promise<OutputSignupDTO>
+    login(input: InputLoginDTO): Promise<OutputLoginDTO>
+    editAccount(input: InputEditAccountDTO): Promise<OutputEditAccountDTO>
 }

@@ -2,7 +2,7 @@ import { UserDB } from "../types/types"
 import { BaseDatabase } from "./BaseDatabase"
 
 
-export class UserDatabase extends BaseDatabase implements UserDatabese {
+export class UserDatabase extends BaseDatabase implements UserDatabaseI {
     
     public static TABLE_USER: string = "users"
 
@@ -31,11 +31,20 @@ export class UserDatabase extends BaseDatabase implements UserDatabese {
 
         return result
     }
+
+    public editAccount = async (input: {id: string, name: string, password: string}): Promise<void> => {
+        
+        const {id, name, password} = input
+
+        await UserDatabase.connection(UserDatabase.TABLE_USER).update({name, password}).where({id})
+        
+    }
 }
 
-export interface UserDatabese {
+export interface UserDatabaseI {
     signup (input: UserDB): Promise<void>
     findUserById(id: string): Promise<UserDB | undefined>
     findUserByEmail(email: string): Promise<UserDB | undefined>
     findRole(role: string): Promise<UserDB | undefined>
+    editAccount(input: UserDB): Promise<void>
 }

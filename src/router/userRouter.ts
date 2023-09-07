@@ -21,3 +21,4 @@ const newUserController = new UserController(
 
 userRouter.post('/signup', newUserController.signup)
 userRouter.post('/login', newUserController.login)
+userRouter.put('/account/:id', newUserController.editAccount)
