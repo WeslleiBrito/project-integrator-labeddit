@@ -5,7 +5,7 @@ import { BaseError } from "../errors/BaseError";
 import { InputSignupSchema, OutputSignupDTO } from "../dtos/InputSignup.dto";
 import { InputLoginSchema } from "../dtos/InputLogin.dto";
 import { InputEditAccountSchema } from "../dtos/InputEditAccount.dto";
-import { InputDeleteAccountSchema } from "../dtos/InputDeleteAccount.test";
+import { InputDeleteAccountSchema } from "../dtos/InputDeleteAccount.dto";
 
 
 export class UserController {

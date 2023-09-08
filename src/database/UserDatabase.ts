@@ -1,4 +1,4 @@
-import { InputDeleteAccountDTO } from "../dtos/InputDeleteAccount.test"
+import { InputDeleteAccountDTO } from "../dtos/InputDeleteAccount.dto"
 import { UserDB } from "../types/types"
 import { BaseDatabase } from "./BaseDatabase"
 

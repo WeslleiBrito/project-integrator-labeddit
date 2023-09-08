@@ -1,5 +1,5 @@
 import { UserDatabase } from "../database/UserDatabase";
-import { InputDeleteAccountDTO, OutputDeleteAccountDTO } from "../dtos/InputDeleteAccount.test";
+import { InputDeleteAccountDTO, OutputDeleteAccountDTO } from "../dtos/InputDeleteAccount.dto";
 import { InputEditAccountDTO, OutputEditAccountDTO } from "../dtos/InputEditAccount.dto";
 import { InputLoginDTO, OutputLoginDTO } from "../dtos/InputLogin.dto";
 import { InputSignupDTO, OutputSignupDTO } from "../dtos/InputSignup.dto";

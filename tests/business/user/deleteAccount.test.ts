@@ -3,7 +3,7 @@ import { HashManagerMock } from "../../mocks/HashManagerMock"
 import { IdGeneratorMock } from "../../mocks/IdGeneratorMock"
 import { TokenManagerMock } from "../../mocks/TokenManagerMock"
 import { UserDatabaseMock } from "../../mocks/UserDatabaseMock"
-import { InputDeleteAccountSchema } from "../../../src/dtos/InputDeleteAccount.test"
+import { InputDeleteAccountSchema } from "../../../src/dtos/InputDeleteAccount.dto"
 
 
 const userBusiness = new UserBusiness(
