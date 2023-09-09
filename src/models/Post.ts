@@ -1,8 +1,9 @@
 
-export class post {
+export class Post {
 
     constructor(
         private id: string,
+        private userId: string,
         private content: string,
         private like: number,
         private dislike: number,
@@ -13,6 +14,10 @@ export class post {
 
     public getId = (): string => {
         return this.id
+    }
+
+    public getUserId = (): string => {
+        return this.userId
     }
 
     public getContent = (): string => {
@@ -39,7 +44,34 @@ export class post {
         return this.updatedAt
     }
     
+    public getPostModel = (): PostModel => {
+
+        const model: PostModel = {
+            id: this.id,
+            userId: this.userId,
+            content: this.content,
+            like: this.like,
+            dislike: this.dislike,
+            amountComments: this.amountComments,
+            createdAt: this.createdAt,
+            updatedAt: this.updatedAt
+        }
+
+        return model
+    }
+
     public setContent = (newContent: string): void => {
         this.content = newContent
     }
+}
+
+export interface PostModel {
+    id: string
+    userId: string
+    content: string
+    like: number
+    dislike: number
+    amountComments: number
+    createdAt: string
+    updatedAt: string
 }

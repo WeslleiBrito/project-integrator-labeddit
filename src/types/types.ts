@@ -17,3 +17,20 @@ export interface UserDB extends InputSignupDTO {
     role: USER_ROLES,
     created_at: string
 }
+
+export interface PostDB {
+    id: string
+    user_id: string
+    content: string
+    like: number
+    dislike: number
+    amount_comments: number
+    created_at: string
+    updated_at: string
+}
+
+export interface InputPostDB {
+    id: string
+    user_id: string
+    content: string
+}

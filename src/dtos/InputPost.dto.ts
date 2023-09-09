@@ -6,7 +6,7 @@ export interface InputPostDTO {
 }
 
 export interface OutputPostDTO {
-    message: "Post criado com sucesso!"
+    message: string
 }
 
 export const InputPostSchema = z.object(
