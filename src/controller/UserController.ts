@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
 import { ZodError } from "zod";
 import { BaseError } from "../errors/BaseError";
-import { InputSignupSchema, OutputSignupDTO } from "../dtos/InputSignup.dto";
-import { InputLoginSchema } from "../dtos/InputLogin.dto";
-import { InputEditAccountSchema } from "../dtos/InputEditAccount.dto";
-import { InputDeleteAccountSchema } from "../dtos/InputDeleteAccount.dto";
+import { InputSignupSchema, OutputSignupDTO } from "../dtos/user/InputSignup.dto";
+import { InputLoginSchema } from "../dtos/user/InputLogin.dto";
+import { InputEditAccountSchema } from "../dtos/user/InputEditAccount.dto";
+import { InputDeleteAccountSchema } from "../dtos/user/InputDeleteAccount.dto";
 
 
 export class UserController {

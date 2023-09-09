@@ -1,6 +1,6 @@
 import { ZodError } from "zod"
 import { UserBusiness } from "../../../src/business/UserBusiness"
-import { InputEditAccountSchema } from "../../../src/dtos/InputEditAccount.dto"
+import { InputEditAccountSchema } from "../../../src/dtos/user/InputEditAccount.dto"
 import { BaseError } from "../../../src/errors/BaseError"
 import { HashManagerMock } from "../../mocks/HashManagerMock"
 import { IdGeneratorMock } from "../../mocks/IdGeneratorMock"

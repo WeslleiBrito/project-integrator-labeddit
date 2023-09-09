@@ -1,4 +1,4 @@
-import { InputPostDB, PostDB } from "../types/types";
+import { InputEditDB, InputPostDB, PostDB } from "../types/types";
 import { BaseDatabase } from "./BaseDatabase";
 
 
@@ -13,9 +13,22 @@ export class PostDatabase extends BaseDatabase implements PostDatabaseI {
         return result
     }
 
+    public findPostById = async (id: string): Promise<PostDB | undefined> => {
+
+        const [result]: PostDB[] | undefined[] = await PostDatabase.connection(PostDatabase.TABLE_POSTS).where({id})
+
+        return result
+    }
+    
     public createPost = async (input: InputPostDB): Promise<void> => {
 
         await PostDatabase.connection(PostDatabase.TABLE_POSTS).insert(input)
+    }
+
+    public editPost = async (input: InputEditDB): Promise<void> => {
+        
+        await PostDatabase.connection(PostDatabase.TABLE_POSTS).update({content: input.content}).where({id: input.id})
+
     }
 }
 

@@ -1,4 +1,4 @@
-import { InputSignupDTO } from "../dtos/InputSignup.dto";
+import { InputSignupDTO } from "../dtos/user/InputSignup.dto";
 
 export enum USER_ROLES {
     ADMIN = "ADMIN",
@@ -32,5 +32,10 @@ export interface PostDB {
 export interface InputPostDB {
     id: string
     user_id: string
+    content: string
+}
+
+export interface InputEditDB {
+    id: string,
     content: string
 }

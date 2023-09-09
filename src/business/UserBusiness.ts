@@ -1,8 +1,8 @@
 import { UserDatabase } from "../database/UserDatabase";
-import { InputDeleteAccountDTO, OutputDeleteAccountDTO } from "../dtos/InputDeleteAccount.dto";
-import { InputEditAccountDTO, OutputEditAccountDTO } from "../dtos/InputEditAccount.dto";
-import { InputLoginDTO, OutputLoginDTO } from "../dtos/InputLogin.dto";
-import { InputSignupDTO, OutputSignupDTO } from "../dtos/InputSignup.dto";
+import { InputDeleteAccountDTO, OutputDeleteAccountDTO } from "../dtos/user/InputDeleteAccount.dto";
+import { InputEditAccountDTO, OutputEditAccountDTO } from "../dtos/user/InputEditAccount.dto";
+import { InputLoginDTO, OutputLoginDTO } from "../dtos/user/InputLogin.dto";
+import { InputSignupDTO, OutputSignupDTO } from "../dtos/user/InputSignup.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { ConflictError } from "../errors/ConflictError";
 import { NotFoundError } from "../errors/NotFoundError";

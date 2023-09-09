@@ -1,5 +1,5 @@
 import {PostBusiness} from '../../../src/business/PostBusiness'
-import { InputPostSchema } from '../../../src/dtos/InputPost.dto'
+import { InputPostSchema } from '../../../src/dtos/post/InputPost.dto'
 import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
 import { PostDatabaseMock } from '../../mocks/PostDatabaseMock'
 import { TokenManagerMock } from '../../mocks/TokenManagerMock'

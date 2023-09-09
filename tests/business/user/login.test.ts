@@ -1,6 +1,6 @@
 import { UserBusiness } from "../../../src/business/UserBusiness"
-import { InputLoginSchema } from "../../../src/dtos/InputLogin.dto"
-import { InputSignupSchema } from "../../../src/dtos/InputSignup.dto"
+import { InputLoginSchema } from "../../../src/dtos/user/InputLogin.dto"
+import { InputSignupSchema } from "../../../src/dtos/user/InputSignup.dto"
 import { BaseError } from "../../../src/errors/BaseError"
 import { HashManagerMock } from "../../mocks/HashManagerMock"
 import { IdGeneratorMock } from "../../mocks/IdGeneratorMock"

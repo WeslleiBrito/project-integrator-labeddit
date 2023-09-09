@@ -1,5 +1,5 @@
 import { UserBusiness } from "../../../src/business/UserBusiness"
-import { InputSignupSchema } from "../../../src/dtos/InputSignup.dto"
+import { InputSignupSchema } from "../../../src/dtos/user/InputSignup.dto"
 import { HashManagerMock } from "../../mocks/HashManagerMock"
 import { IdGeneratorMock } from "../../mocks/IdGeneratorMock"
 import { TokenManagerMock } from "../../mocks/TokenManagerMock"

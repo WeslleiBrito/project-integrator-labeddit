@@ -1,5 +1,5 @@
 import { BaseDatabase } from "../../src/database/BaseDatabase";
-import { InputPostDB, PostDB } from "../../src/types/types";
+import { InputEditDB, InputPostDB, PostDB } from "../../src/types/types";
 
 const postsMock: PostDB[] = [
     {
@@ -68,5 +68,16 @@ export class PostDatabaseMock extends BaseDatabase {
 
     public createPost = async (input: InputPostDB): Promise<void> => {
 
+    }
+
+    public editPost = async (input: InputEditDB): Promise<void> => {
+        
+    }
+
+    public findPostById = async (id: string): Promise<PostDB | undefined> => {
+
+        const result: PostDB | undefined = postsMock.find(post => post.id === id)
+        
+        return result
     }
 }

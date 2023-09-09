@@ -16,3 +16,4 @@ const newPostController = new PostController(
 )
 
 postRouter.post("/", newPostController.createPost)
+postRouter.put("/:id", newPostController.editPost)
