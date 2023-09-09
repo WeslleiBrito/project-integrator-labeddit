@@ -1,4 +1,5 @@
-import { PostDB } from "../../src/types/types";
+import { BaseDatabase } from "../../src/database/BaseDatabase";
+import { InputPostDB, PostDB } from "../../src/types/types";
 
 const postsMock: PostDB[] = [
     {
@@ -52,3 +53,20 @@ const postsMock: PostDB[] = [
         updated_at: new Date().toISOString()
     },
 ]
+
+export class PostDatabaseMock extends BaseDatabase {
+
+
+    public static TABLE_POSTS = "posts"
+
+    public findPost = async (): Promise<PostDB[]> => {
+
+        const result: PostDB[] = postsMock
+
+        return result
+    }
+
+    public createPost = async (input: InputPostDB): Promise<void> => {
+
+    }
+}
