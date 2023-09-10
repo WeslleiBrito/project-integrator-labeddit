@@ -1,6 +1,7 @@
 
 
 export class Comment {
+    
     constructor(
         private id: string,
         private idUser: string,
@@ -12,7 +13,7 @@ export class Comment {
         private updatedAt: string,
         private like: number,
         private dislike: number,
-        private answers?: Comment[]
+        private answers: Comment[]
     ){}
 
     public getCommentModel = (): CommentModel => {
@@ -27,7 +28,7 @@ export class Comment {
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
             like: this.like,
-            dislike: this.dislike
+            dislike: this.dislike,
             answers: this.answers
         }
     }
@@ -89,10 +90,10 @@ export class Comment {
     }
 
     public setAmountComment = (newAmountComment: number): void => {
-        this.dislike = newDilike
+        this.amountComment = newAmountComment
     }
     
-    public getAnswers = (): Comment => {
+    public getAnswers = (): Comment[] => {
         return this.answers
     }
 
@@ -109,5 +110,5 @@ export interface CommentModel {
         updatedAt: string,
         like: number,
         dislike: number,
-        answers?: Comment[]
+        answers: Comment[]
 }
