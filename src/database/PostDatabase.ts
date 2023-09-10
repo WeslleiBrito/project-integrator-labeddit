@@ -30,9 +30,18 @@ export class PostDatabase extends BaseDatabase implements PostDatabaseI {
         await PostDatabase.connection(PostDatabase.TABLE_POSTS).update({content: input.content}).where({id: input.id})
 
     }
+
+    public deletePost = async (id: string): Promise<void> => {
+
+        await PostDatabase.connection(PostDatabase.TABLE_POSTS).del().where({id})
+
+    }
 }
 
 export interface PostDatabaseI {
     findPost(): Promise<PostDB[]>
     createPost(input: InputPostDB): Promise<void>
+    findPostById(id: string): Promise<PostDB | undefined>
+    editPost(input: InputEditDB): Promise<void>
+    deletePost(input: string): Promise<void>
 }
