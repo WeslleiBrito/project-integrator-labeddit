@@ -4,7 +4,7 @@ import { InputEditDB, InputPostDB, PostDB } from "../../src/types/types";
 const postsMock: PostDB[] = [
     {
         id: "idPost1",
-        user_id: "idUser1",
+        user_id: "idMockNormal01",
         content: "Conteudo 1",
         like: 3,
         dislike: 15,
@@ -14,7 +14,7 @@ const postsMock: PostDB[] = [
     },
     {
         id: "idPost2",
-        user_id: "idUser2",
+        user_id: "idMockNormal02",
         content: "Conteudo 2",
         like: 100,
         dislike: 13,
@@ -24,7 +24,7 @@ const postsMock: PostDB[] = [
     },
     {
         id: "idPost3",
-        user_id: "idUser3",
+        user_id: "idMockNormal03",
         content: "Conteudo 3",
         like: 3,
         dislike: 15,
@@ -34,7 +34,7 @@ const postsMock: PostDB[] = [
     },
     {
         id: "idPost4",
-        user_id: "idUser2",
+        user_id: "idMockAdmin01",
         content: "Conteudo 4",
         like: 3,
         dislike: 15,
@@ -44,7 +44,7 @@ const postsMock: PostDB[] = [
     },
     {
         id: "idPost5",
-        user_id: "idUser1",
+        user_id: "idMockMaster",
         content: "Conteudo 5",
         like: 3,
         dislike: 15,
