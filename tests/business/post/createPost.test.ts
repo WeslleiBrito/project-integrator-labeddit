@@ -3,9 +3,11 @@ import { InputPostSchema } from '../../../src/dtos/post/InputPost.dto'
 import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
 import { PostDatabaseMock } from '../../mocks/PostDatabaseMock'
 import { TokenManagerMock } from '../../mocks/TokenManagerMock'
+import { UserDatabaseMock } from '../../mocks/UserDatabaseMock'
 
 const postBusiness = new PostBusiness(
     new PostDatabaseMock(),
+    new UserDatabaseMock(),
     new TokenManagerMock(),
     new IdGeneratorMock()
 )

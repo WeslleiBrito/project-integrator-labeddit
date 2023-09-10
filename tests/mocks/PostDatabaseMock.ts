@@ -26,8 +26,8 @@ const postsMock: PostDB[] = [
         id: "idPost3",
         user_id: "idMockNormal03",
         content: "Conteudo 3",
-        like: 3,
-        dislike: 15,
+        like: 7,
+        dislike: 12,
         amount_comments: 30,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
@@ -35,6 +35,17 @@ const postsMock: PostDB[] = [
     {
         id: "idPost4",
         user_id: "idMockAdmin01",
+        content: "Conteudo 4",
+        like: 6,
+        dislike: 2,
+        amount_comments: 30,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+    },
+
+    {
+        id: "idPost6",
+        user_id: "idMockAdmin02",
         content: "Conteudo 4",
         like: 3,
         dislike: 15,
@@ -77,7 +88,11 @@ export class PostDatabaseMock extends BaseDatabase {
     public findPostById = async (id: string): Promise<PostDB | undefined> => {
 
         const result: PostDB | undefined = postsMock.find(post => post.id === id)
-        
+
         return result
+    }
+
+    public deletePost = async (id: string): Promise<void> => {
+
     }
 }

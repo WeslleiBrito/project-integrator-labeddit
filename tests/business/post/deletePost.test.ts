@@ -1,5 +1,5 @@
 import {PostBusiness} from '../../../src/business/PostBusiness'
-import { InputEditPostSchema } from '../../../src/dtos/post/InputEditPost.dto'
+import { InputDeletePostSchema } from '../../../src/dtos/post/InputDeletePost.dto'
 import { BaseError } from '../../../src/errors/BaseError'
 import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
 import { PostDatabaseMock } from '../../mocks/PostDatabaseMock'
@@ -13,24 +13,22 @@ const postBusiness = new PostBusiness(
     new IdGeneratorMock()
 )
 
+describe("Testes do delete-post", () => {
 
-describe("Teste do edit-post", () => {
+    test("Sucesso da deleção do post", async () => {
 
-    test("Sucesso ao editar um post", async () => {
-
-        const input = InputEditPostSchema.parse(
+        const input = InputDeletePostSchema.parse(
             {
-                id: "idPost2",
                 token: "tokenMockNormal02",
-                content: "Teste de sucesso"
+                id: "idPost2"
             }
         )
-        
-        const output = await postBusiness.editPost(input)
-        
+
+        const output = await postBusiness.deletePost(input)
+
         expect(output).toEqual(
             {
-                message: "Post editado com sucesso!"
+                message: "Post deletado com sucesso!"
             }
         )
     })
@@ -39,15 +37,14 @@ describe("Teste do edit-post", () => {
         expect.assertions(4)
 
         try {
-            const input = InputEditPostSchema.parse(
+            const input = InputDeletePostSchema.parse(
                 {
                     id: "idPost2",
-                    token: "token-invalido",
-                    content: "O token é inválido"
+                    token: "token-invalido"
                 }
             )
 
-            const output = await postBusiness.editPost(input)
+            const output = await postBusiness.deletePost(input)
             
         } catch (error) {
             expect(error).toBeDefined()
@@ -64,15 +61,14 @@ describe("Teste do edit-post", () => {
         expect.assertions(4)
 
         try {
-            const input = InputEditPostSchema.parse(
+            const input = InputDeletePostSchema.parse(
                 {
                     id: "id-inválido",
-                    token: "tokenMockNormal02",
-                    content: "Id invalido"
+                    token: "tokenMockNormal02"
                 }
             )
             
-            const output = await postBusiness.editPost(input)
+            const output = await postBusiness.deletePost(input)
 
         } catch (error) {
             expect(error).toBeDefined()
@@ -85,29 +81,46 @@ describe("Teste do edit-post", () => {
         }
     })
 
-
-    test("Caso o usuário que esteja tentando editar a postagem não seja o criador deve gerar um erro", async () => {
+    test("Deve gerar erro caso um usuario normal tentar deletar um post de outro usuário", async () => {
         expect.assertions(4)
 
         try {
-            const input = InputEditPostSchema.parse(
+            const input = InputDeletePostSchema.parse(
                 {
-                    id: "idPost2",
-                    token: "tokenMockNormal03",
-                    content: "Não sou o dono do post, mas quero edita-lo"
+                    id: "idPost3",
+                    token: "tokenMockNormal02"
                 }
             )
             
-            const output = await postBusiness.editPost(input)
+            const output = await postBusiness.deletePost(input)
 
         } catch (error) {
             expect(error).toBeDefined()
             expect(error).toBeInstanceOf(BaseError)
             if(error instanceof BaseError){
-                expect(error.message).toBe("Sua conta não tem permissão para fazer a edição deste post.")
+                expect(error.message).toBe("Sua conta não tem permissão para deletar o post de outro usuário.")
                 expect(error.statusCode).toBe(401)
 
             }
+        }
+    })
+    
+    test("Um usuário admin não tem permissão para deletar um post de outro admin ou master", async () => {
+        expect.assertions(1)
+        
+        try {
+
+            const input = InputDeletePostSchema.parse(
+                {
+                    token: "tokenMockAdmin02",
+                    id: "idPost4"
+                }
+            )
+
+            const output = await postBusiness.deletePost(input)
+
+        } catch (error) {
+            expect(error).toBeDefined()
         }
     })
 })
