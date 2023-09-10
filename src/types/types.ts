@@ -37,5 +37,6 @@ export interface InputPostDB {
 
 export interface InputEditDB {
     id: string,
-    content: string
+    content: string,
+    updateAt: string
 }

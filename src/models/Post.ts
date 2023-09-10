@@ -63,6 +63,11 @@ export class Post {
     public setContent = (newContent: string): void => {
         this.content = newContent
     }
+
+    public setUpdateAt = (newUpdateAt: string): void => {
+        this.updatedAt = newUpdateAt
+    }
+    
 }
 
 export interface PostModel {
