@@ -40,3 +40,24 @@ export interface InputEditDB {
     content: string,
     updateAt: string
 }
+
+export interface CommentDB {
+    id: string,
+    post_id: string,
+    parent_comment_id: string,
+    content: string,
+    id_user: string,
+    like: number,
+    dislike: number,
+    amount_comment: number,
+    created_at: string,
+    updated_at: string 
+}
+
+export interface InputCommentDB {
+    id: string,
+    post_id: string,
+    parent_comment_id: string | null,
+    content: string,
+    id_user: string,
+}
