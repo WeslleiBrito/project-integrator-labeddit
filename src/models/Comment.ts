@@ -6,11 +6,13 @@ export class Comment {
         private idUser: string,
         private postId: string,
         private parentCommentId: string | null,
+        private amountComment: number,
         private content: string,
         private createdAt: string,
         private updatedAt: string,
         private like: number,
-        private dislike: number
+        private dislike: number,
+        private answers?: Comment[]
     ){}
 
     public getCommentModel = (): CommentModel => {
@@ -20,11 +22,13 @@ export class Comment {
             idUser: this.idUser,
             postId: this.postId,
             parentCommentId: this.parentCommentId,
+            amountComment: this.amountComment,
             content: this.content,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,
             like: this.like,
             dislike: this.dislike
+            answers: this.answers
         }
     }
 
@@ -42,6 +46,10 @@ export class Comment {
 
     public getParentCommentId = (): string | null => {
         return this.parentCommentId
+    }
+    
+    public getAmountComment = (): number => {
+        return this.amountComment
     }
 
     public getContent = (): string => {
@@ -79,6 +87,15 @@ export class Comment {
     public setDilike = (newDilike: number): void => {
         this.dislike = newDilike
     }
+
+    public setAmountComment = (newAmountComment: number): void => {
+        this.dislike = newDilike
+    }
+    
+    public getAnswers = (): Comment => {
+        return this.answers
+    }
+
 }
 
 export interface CommentModel {
@@ -86,9 +103,11 @@ export interface CommentModel {
         idUser: string,
         postId: string,
         parentCommentId: string | null,
+        amountComment: number,
         content: string,
         createdAt: string,
         updatedAt: string,
         like: number,
-        dislike: number
+        dislike: number,
+        answers?: Comment[]
 }
