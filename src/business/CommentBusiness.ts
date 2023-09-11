@@ -24,6 +24,8 @@ export class CommentBusiness {
 
         const tokenIsValid = this.tokenManager.validateToken(token)
 
+        const id = this.idGenerator.generate()
+
         if(!tokenIsValid){
             throw new BadRequestError("Refaça o login, para renovar seu token.")
         }
@@ -34,18 +36,28 @@ export class CommentBusiness {
             throw new NotFoundError("Post não localizado, verifique o id da postagem e tente novamente.")
         }
         
-        let parentComment: string | null
-
         if(parentCommentId){
 
             const commentDb = await this.commentDatabase.findCommentById(parentCommentId)
 
-            parentComment = commentDb ? commentDb.id : null
+            if(!commentDb){
+                throw new NotFoundError("Comentário não localizado, verifique o id e tente novamente.")
+            }
+
         }
+
         const inputDb: InputCommentDB = {
             content,
-
+            id,
+            post_id: post.id,
+            parent_comment_id: parentCommentId ? parentCommentId : null,
+            id_user: tokenIsValid.id
         } 
-        await this.commentDatabase.createComment({})
+
+        await this.commentDatabase.createComment(inputDb)
+
+        return{
+            message: "Comentário criado com sucesso!"
+        }
     }
 }

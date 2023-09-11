@@ -19,4 +19,4 @@ export const InputCreateCommentSchema = z.object(
         parentCommentId: z.string({required_error: "O parentCommentId é obrigatório.", invalid_type_error: "O parentCommentId deve ser do tipo string"}).min(1, "parentCommentId vazio.").optional(),
         content: z.string({required_error: "O content é obrigatório.", invalid_type_error: "O content deve ser do tipo string"}).min(1, "content vazio.")
     }
-)
+).transform(data => data as InputCreateCommentDTO)
