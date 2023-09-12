@@ -20,17 +20,17 @@ export class CommentBusiness {
 
     public createComment = async (input: InputCreateCommentDTO): Promise<OutputCreateCommentDTO> => {
 
-        const {token, postId, parentCommentId, content} = input
+        const {token, id, parentCommentId, content} = input
 
         const tokenIsValid = this.tokenManager.validateToken(token)
 
-        const id = this.idGenerator.generate()
+        const idComment = this.idGenerator.generate()
 
         if(!tokenIsValid){
             throw new BadRequestError("Refaça o login, para renovar seu token.")
         }
 
-        const post = await this.postDatabase.findPostById(postId)
+        const post = await this.postDatabase.findPostById(id)
 
         if(!post){
             throw new NotFoundError("Post não localizado, verifique o id da postagem e tente novamente.")
@@ -47,8 +47,8 @@ export class CommentBusiness {
         }
 
         const inputDb: InputCommentDB = {
+            id: idComment,
             content,
-            id,
             post_id: post.id,
             parent_comment_id: parentCommentId ? parentCommentId : null,
             id_user: tokenIsValid.id

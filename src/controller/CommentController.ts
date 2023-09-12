@@ -17,7 +17,7 @@ export class CommentController {
             const input = InputCreateCommentSchema.parse(
                 {
                     token: req.headers.authorization,
-                    postId: req.params.postId,
+                    id: req.params.id,
                     parentCommentId: req.body.parentCommentId,
                     content: req.body.content
                 }
