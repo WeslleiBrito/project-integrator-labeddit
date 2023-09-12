@@ -44,7 +44,7 @@ export interface InputEditDB {
 export interface CommentDB {
     id: string,
     post_id: string,
-    parent_comment_id: string,
+    parent_comment_id: string | null,
     content: string,
     id_user: string,
     like: number,
