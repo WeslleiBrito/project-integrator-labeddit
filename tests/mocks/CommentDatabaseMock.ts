@@ -108,7 +108,7 @@ export class CommentDatabaseMock extends BaseDatabase {
         return result
     }
 
-    public editComment = async (input: InputEditCommentDB): Promise<void> => {
+    public editComment = async (input: InputEditCommentDB): Promise<void> => {}
 
-  }
+    public deleteComment = async (id: string): Promise<void> => {}
 }

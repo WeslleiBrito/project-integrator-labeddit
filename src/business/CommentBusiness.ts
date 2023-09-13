@@ -1,13 +1,16 @@
 import { CommentDatabase } from "../database/CommentDatabase";
 import { PostDatabase } from "../database/PostDatabase";
+import { UserDatabase } from "../database/UserDatabase";
 import { InputCreateCommentDTO, OutputCreateCommentDTO } from "../dtos/comments/InputCreateComment.dto";
+import { InputDeleteCommentDTO, OutputDeleteCommentDTO } from "../dtos/comments/InputDeleteComment.dto";
 import { InputEditCommentDTO, OutputEditCommentDTO } from "../dtos/comments/InputEditComment.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
+import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { Comment } from "../models/Comment";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
-import { InputCommentDB } from "../types/types";
+import { InputCommentDB, USER_ROLES } from "../types/types";
 
 
 
@@ -15,6 +18,7 @@ export class CommentBusiness {
 
     constructor(
         private commentDatabase: CommentDatabase,
+        private userDatabase: UserDatabase,
         private tokenManager: TokenManager,
         private postDatabase: PostDatabase,
         private idGenerator: IdGenerator
@@ -105,5 +109,30 @@ export class CommentBusiness {
         return {
             message: "Comentário editado com sucesso!"
         }
+    }
+
+    public deleteComment = async (input: InputDeleteCommentDTO): Promise<OutputDeleteCommentDTO> => {
+
+        const {id, token} = input
+
+        const tokenIsValid = this.tokenManager.validateToken(token)
+
+        if(!tokenIsValid){
+            throw new BadRequestError("Refaça o login, para renovar seu token.")
+        }
+
+        const commentDb = await this.commentDatabase.findCommentById(id)
+
+        if(!commentDb){
+            throw new NotFoundError("Comentário não localizado, verifique o id e tente novamente.")
+        }
+
+        const roleUserToken = await this.userDatabase.findUserById(tokenIsValid.id)
+
+        if(roleUserToken && roleUserToken.role === USER_ROLES.NORMAL && commentDb.id !== roleUserToken.id){
+            throw new UnauthorizedError("Sua conta não tem permissão para deleter este comentário.")
+        }
+        
+
     }
 }
