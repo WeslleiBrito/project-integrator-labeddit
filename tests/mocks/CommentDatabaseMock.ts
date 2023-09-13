@@ -1,5 +1,5 @@
 import { BaseDatabase } from '../../src/database/BaseDatabase'
-import {CommentDB} from '../../src/types/types'
+import {CommentDB, InputEditCommentDB} from '../../src/types/types'
 
 const commentMock: CommentDB[] = [
     {
@@ -107,4 +107,8 @@ export class CommentDatabaseMock extends BaseDatabase {
 
         return result
     }
+
+    public editComment = async (input: InputEditCommentDB): Promise<void> => {
+
+  }
 }
