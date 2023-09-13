@@ -17,4 +17,5 @@ const newCommentController = new CommentController(
     )
 )
 
-commentRouter.post('/:id/comment', newCommentController.createComment)
+commentRouter.post('/post/:id', newCommentController.createComment)
+commentRouter.put('/:id', newCommentController.editComment)
