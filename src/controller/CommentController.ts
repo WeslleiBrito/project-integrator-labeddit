@@ -3,6 +3,7 @@ import { CommentBusiness } from "../business/CommentBusiness";
 import { InputCreateCommentSchema } from "../dtos/comments/InputCreateComment.dto";
 import { ZodError } from "zod";
 import { BaseError } from "../errors/BaseError";
+import { InputEditCommentSchema } from "../dtos/comments/InputEditComment.dto";
 
 
 export class CommentController {
@@ -36,5 +37,33 @@ export class CommentController {
                 res.send("Erro inesperado\n " + error)
             }
         }
+    }
+
+    public editComment = async (req: Request, res: Response) => {
+        
+        try {
+
+            const input = InputEditCommentSchema.parse(
+                {
+                    token: req.headers.authorization,
+                    id: req.params.id,
+                    content: req.body.content
+                }
+            )
+    
+            const output = await this.commentBusiness.editComment(input)
+
+            res.status(201).send(output)
+
+        } catch (error) {
+             if(error instanceof ZodError){
+                res.status(400).send(error.issues)
+            }else if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.send("Erro inesperado\n " + error)
+            }
+        }
+
     }
 }

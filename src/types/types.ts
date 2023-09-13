@@ -61,3 +61,9 @@ export interface InputCommentDB {
     content: string,
     id_user: string,
 }
+
+export interface InputEditCommentDB {
+    id: string 
+    content: string
+    updated_at: string
+}

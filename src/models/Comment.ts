@@ -93,7 +93,7 @@ export class Comment {
         this.amountComment = newAmountComment
     }
     
-    public getAnswers = (): Comment[] => {
+    public getAnswers = (): Comment[]  => {
         return this.answers
     }
 
