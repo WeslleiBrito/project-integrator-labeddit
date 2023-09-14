@@ -1,4 +1,5 @@
 import { CommentBusiness } from '../../../src/business/CommentBusiness'
+import { UserDatabase } from '../../../src/database/UserDatabase'
 import { InputEditCommentSchema } from '../../../src/dtos/comments/InputEditComment.dto'
 import { CommentDatabaseMock } from '../../mocks/CommentDatabaseMock'
 import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
@@ -9,6 +10,7 @@ import { TokenManagerMock } from '../../mocks/TokenManagerMock'
 
 const newCommentBusiness = new CommentBusiness(
     new CommentDatabaseMock(),
+    new UserDatabase(),
     new TokenManagerMock(),
     new PostDatabaseMock(),
     new IdGeneratorMock()

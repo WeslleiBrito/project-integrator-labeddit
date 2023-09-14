@@ -103,7 +103,7 @@ export class PostBusiness {
         if(tokenIsValid.role === USER_ROLES.NORMAL && post.user_id !== tokenIsValid.id){
             throw new UnauthorizedError("Sua conta não tem permissão para deletar o post de outro usuário.")
         }
-
+        
         if(roleCreatorPost && tokenIsValid.role === USER_ROLES.ADMIN && post.user_id !== tokenIsValid.id && roleCreatorPost.role !== USER_ROLES.NORMAL){
             throw new UnauthorizedError("Sua conta não tem permissão para deletar o post desse usuário.")
         }

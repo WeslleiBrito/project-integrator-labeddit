@@ -127,12 +127,23 @@ export class CommentBusiness {
             throw new NotFoundError("Comentário não localizado, verifique o id e tente novamente.")
         }
 
-        const roleUserToken = await this.userDatabase.findUserById(tokenIsValid.id)
 
-        if(roleUserToken && roleUserToken.role === USER_ROLES.NORMAL && commentDb.id !== roleUserToken.id){
+        if(tokenIsValid.role === USER_ROLES.NORMAL && commentDb.id_user !== tokenIsValid.id){
             throw new UnauthorizedError("Sua conta não tem permissão para deleter este comentário.")
         }
         
+        const roleCreatorComment = await this.userDatabase.findUserById(commentDb.id_user) 
 
+        if(roleCreatorComment && (tokenIsValid.role === USER_ROLES.ADMIN 
+            && roleCreatorComment.role !== USER_ROLES.NORMAL) 
+            && commentDb.id_user !== tokenIsValid.id){
+                throw new UnauthorizedError("Sua conta não tem permissão para deleter este comentário.")
+        }
+
+        await this.commentDatabase.deleteComment(id)
+
+        return {
+            message: "Comentário deletado com sucesso!"
+        }
     }
 }

@@ -4,6 +4,7 @@ import { InputCreateCommentSchema } from "../dtos/comments/InputCreateComment.dt
 import { ZodError } from "zod";
 import { BaseError } from "../errors/BaseError";
 import { InputEditCommentSchema } from "../dtos/comments/InputEditComment.dto";
+import { InputDeleteCommentSchema } from "../dtos/comments/InputDeleteComment.dto";
 
 
 export class CommentController {
@@ -52,6 +53,33 @@ export class CommentController {
             )
     
             const output = await this.commentBusiness.editComment(input)
+
+            res.status(201).send(output)
+
+        } catch (error) {
+             if(error instanceof ZodError){
+                res.status(400).send(error.issues)
+            }else if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.send("Erro inesperado\n " + error)
+            }
+        }
+
+    }
+    
+    public deleteComment = async (req: Request, res: Response) => {
+        
+        try {
+
+            const input = InputDeleteCommentSchema.parse(
+                {
+                    token: req.headers.authorization,
+                    id: req.params.id
+                }
+            )
+    
+            const output = await this.commentBusiness.deleteComment(input)
 
             res.status(201).send(output)
 

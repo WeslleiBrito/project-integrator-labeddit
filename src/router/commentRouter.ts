@@ -21,3 +21,4 @@ const newCommentController = new CommentController(
 
 commentRouter.post('/post/:id', newCommentController.createComment)
 commentRouter.put('/:id', newCommentController.editComment)
+commentRouter.delete('/:id', newCommentController.deleteComment)
