@@ -27,7 +27,7 @@ export class PostDatabase extends BaseDatabase implements PostDatabaseI {
 
     public editPost = async (input: InputEditDB): Promise<void> => {
         
-        await PostDatabase.connection(PostDatabase.TABLE_POSTS).update({content: input.content, update_at: input.updateAt, amount_comments: input.amountComments}).where({id: input.id})
+        await PostDatabase.connection(PostDatabase.TABLE_POSTS).update({content: input.content, update_at: input.updateAt}).where({id: input.id})
 
     }
 

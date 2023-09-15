@@ -75,7 +75,7 @@ export class PostBusiness {
         updatePost.setContent(content)
         updatePost.setUpdateAt(new Date().toISOString())
 
-        await this.postDatabase.editPost({id, content: updatePost.getContent(), updateAt: updatePost.getUpdatedAt(), amountComments: updatePost.getAmountComments()})
+        await this.postDatabase.editPost({id, content: updatePost.getContent(), updateAt: updatePost.getUpdatedAt()})
 
         return {
             message: "Post editado com sucesso!"

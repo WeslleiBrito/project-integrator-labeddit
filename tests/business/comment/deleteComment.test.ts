@@ -1,4 +1,5 @@
 import { CommentBusiness } from '../../../src/business/CommentBusiness'
+import { UserDatabase } from '../../../src/database/UserDatabase'
 import { CommentDatabaseMock } from '../../mocks/CommentDatabaseMock'
 import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
 import { PostDatabaseMock } from '../../mocks/PostDatabaseMock'

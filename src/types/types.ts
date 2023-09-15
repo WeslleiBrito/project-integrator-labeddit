@@ -38,8 +38,7 @@ export interface InputPostDB {
 export interface InputEditDB {
     id: string,
     content: string,
-    updateAt: string,
-    amountComments: number
+    updateAt: string
 }
 
 export interface CommentDB {
@@ -52,7 +51,8 @@ export interface CommentDB {
     dislike: number,
     amount_comment: number,
     created_at: string,
-    updated_at: string 
+    updated_at: string,
+    answer?: CommentDB[]
 }
 
 export interface InputCommentDB {
@@ -66,6 +66,6 @@ export interface InputCommentDB {
 export interface InputEditCommentDB {
     id: string 
     content: string
-    updated_at: string,
-    amount_comment: number
+    updated_at: string
 }
+
