@@ -128,9 +128,9 @@ export class CommentDatabaseMock extends BaseDatabase {
     }
 
     public findCommentById = async (id: string): Promise<CommentDB | undefined> => {
-
+        
         const result: CommentDB | undefined = commentMock.find(comment => comment.id === id)
-
+        
         return result
     }
 

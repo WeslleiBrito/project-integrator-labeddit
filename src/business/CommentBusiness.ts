@@ -134,6 +134,7 @@ export class CommentBusiness {
         
         const roleCreatorComment = await this.userDatabase.findUserById(commentDb.id_user) 
 
+
         if(roleCreatorComment && (tokenIsValid.role === USER_ROLES.ADMIN 
             && roleCreatorComment.role !== USER_ROLES.NORMAL) 
             && commentDb.id_user !== tokenIsValid.id){

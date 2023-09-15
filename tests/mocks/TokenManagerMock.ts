@@ -58,7 +58,7 @@ export class TokenManagerMock {
     }
 
     public validateToken = (token: string): TokenPayload | null => {
-
+        
         if(payloads[token]){
             return payloads[token]
         }

@@ -5,12 +5,13 @@ import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
 import { PostDatabaseMock } from '../../mocks/PostDatabaseMock'
 import { TokenManagerMock } from '../../mocks/TokenManagerMock'
 import { InputDeleteCommentSchema } from '../../../src/dtos/comments/InputDeleteComment.dto'
+import { UserDatabaseMock } from '../../mocks/UserDatabaseMock'
 
 
 
 const newCommentBusiness = new CommentBusiness(
     new CommentDatabaseMock(),
-    new UserDatabase(),
+    new UserDatabaseMock(),
     new TokenManagerMock(),
     new PostDatabaseMock(),
     new IdGeneratorMock()
