@@ -4,6 +4,7 @@ import { UserDatabase } from "../database/UserDatabase";
 import { InputCreateCommentDTO, OutputCreateCommentDTO } from "../dtos/comments/InputCreateComment.dto";
 import { InputDeleteCommentDTO, OutputDeleteCommentDTO } from "../dtos/comments/InputDeleteComment.dto";
 import { InputEditCommentDTO, OutputEditCommentDTO } from "../dtos/comments/InputEditComment.dto";
+import { InputGetCommentsDTO, OutputGetCommentsDTO } from "../dtos/comments/InputGetComments.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
@@ -146,5 +147,19 @@ export class CommentBusiness {
         return {
             message: "Comentário deletado com sucesso!"
         }
+    }
+
+    public getComments = async (input: InputGetCommentsDTO) => {
+
+        const {token} = input
+
+        const tokenIsValid = this.tokenManager.validateToken(token)
+
+        if(!tokenIsValid){
+            throw new BadRequestError("Refaça o login, para renovar seu token.")
+        }
+
+        return await this.commentDatabase.getComments()
+
     }
 }

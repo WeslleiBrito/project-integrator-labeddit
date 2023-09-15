@@ -1,4 +1,3 @@
-import { InputEditCommentDTO } from "../dtos/comments/InputEditComment.dto";
 import { CommentDB, InputCommentDB, InputEditCommentDB } from "../types/types";
 import { BaseDatabase } from "./BaseDatabase";
 
@@ -31,6 +30,13 @@ export class CommentDatabase extends BaseDatabase {
 
         await CommentDatabase.connection(CommentDatabase.TABLE_COMMENTS).del().where({id})
         
+    }
+
+    public getComments = async () => {
+
+        const result = await CommentDatabase.connection(CommentDatabase.TABLE_COMMENTS).leftJoin('posts', 'comments.post_id', 'posts.id')
+
+        return result
     }
     
 }
