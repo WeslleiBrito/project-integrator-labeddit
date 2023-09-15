@@ -39,7 +39,7 @@ const payloads: {[key: string]: TokenPayload} = {
 
     tokenMockAdmin02: {
         id: 'idMockAdmin02',
-        name: 'Normal 02',
+        name: 'Admin 02',
         role: USER_ROLES.ADMIN
     },
 

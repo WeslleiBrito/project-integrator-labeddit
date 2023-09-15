@@ -90,6 +90,32 @@ const commentMock: CommentDB[] = [
       dislike: 9
     },
 
+    {
+      id: 'idMockComment8',
+      id_user: 'idMockAdmin01',
+      post_id: 'idPost3',
+      content: "Comentário do comentário 6",
+      parent_comment_id: "idMockComment6",
+      amount_comment: 0,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      like: 1,
+      dislike: 9
+    },
+
+    {
+      id: 'idMockComment9',
+      id_user: 'idMockMaster',
+      post_id: 'idPost3',
+      content: "Comentário do master",
+      parent_comment_id: "idMockComment6",
+      amount_comment: 0,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      like: 1,
+      dislike: 9
+    },
+
 ]
 
 
