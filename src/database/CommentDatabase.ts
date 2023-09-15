@@ -20,7 +20,7 @@ export class CommentDatabase extends BaseDatabase {
 
     public editComment = async (input: InputEditCommentDB): Promise<void> => {
 
-        const {id, content, updated_at} = input
+        const {id, content, updated_at, amount_comment} = input
 
         await CommentDatabase.connection(CommentDatabase.TABLE_COMMENTS).update({content, updated_at}).where({id})
 
@@ -34,7 +34,19 @@ export class CommentDatabase extends BaseDatabase {
 
     public getComments = async () => {
 
-        const result = await CommentDatabase.connection(CommentDatabase.TABLE_COMMENTS).leftJoin('posts', 'comments.post_id', 'posts.id')
+        const result = await CommentDatabase.connection(CommentDatabase.TABLE_COMMENTS)
+        .select(
+            "id",
+            "post_id",
+            "parent_comment_id",
+            "content",
+            "id_user",
+            "like",
+            "dislike",
+            "amount_comment",
+            "created_at",
+            "updated_at"
+        ).leftJoin('posts', 'comments.post_id', 'posts.id')
 
         return result
     }

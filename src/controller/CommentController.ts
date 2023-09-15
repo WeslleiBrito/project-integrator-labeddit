@@ -5,6 +5,7 @@ import { ZodError } from "zod";
 import { BaseError } from "../errors/BaseError";
 import { InputEditCommentSchema } from "../dtos/comments/InputEditComment.dto";
 import { InputDeleteCommentSchema } from "../dtos/comments/InputDeleteComment.dto";
+import { InputGetCommentsSchema } from "../dtos/comments/InputGetComments.dto";
 
 
 export class CommentController {
@@ -94,4 +95,32 @@ export class CommentController {
         }
 
     }
+
+    public getComment = async (req: Request, res: Response) => {
+        
+        try {
+
+            const input = InputGetCommentsSchema.parse(
+                {
+                    token: req.headers.authorization
+                }
+            )
+    
+            const output = await this.commentBusiness.getComments(input)
+
+            res.status(201).send(output)
+
+        } catch (error) {
+             if(error instanceof ZodError){
+                res.status(400).send(error.issues)
+            }else if (error instanceof BaseError) {
+                res.status(error.statusCode).send(error.message)
+            } else {
+                res.send("Erro inesperado\n " + error)
+            }
+        }
+
+    }
+
+
 }

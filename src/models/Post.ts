@@ -67,6 +67,10 @@ export class Post {
     public setUpdateAt = (newUpdateAt: string): void => {
         this.updatedAt = newUpdateAt
     }
+
+    public setAmountComments = (newAmountComments: number): void => {
+        this.amountComments = newAmountComments
+    }
     
 }
 

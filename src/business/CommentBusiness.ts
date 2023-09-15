@@ -4,14 +4,15 @@ import { UserDatabase } from "../database/UserDatabase";
 import { InputCreateCommentDTO, OutputCreateCommentDTO } from "../dtos/comments/InputCreateComment.dto";
 import { InputDeleteCommentDTO, OutputDeleteCommentDTO } from "../dtos/comments/InputDeleteComment.dto";
 import { InputEditCommentDTO, OutputEditCommentDTO } from "../dtos/comments/InputEditComment.dto";
-import { InputGetCommentsDTO, OutputGetCommentsDTO } from "../dtos/comments/InputGetComments.dto";
+import { InputGetCommentsDTO } from "../dtos/comments/InputGetComments.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { Comment } from "../models/Comment";
+import { Post } from "../models/Post";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
-import { InputCommentDB, USER_ROLES } from "../types/types";
+import { CommentDB, InputCommentDB, InputEditCommentDB, InputEditDB, USER_ROLES } from "../types/types";
 
 
 
@@ -50,7 +51,6 @@ export class CommentBusiness {
             if(!commentDb){
                 throw new NotFoundError("Comentário não localizado, verifique o id e tente novamente.")
             }
-
         }
 
         const inputDb: InputCommentDB = {
@@ -62,6 +62,57 @@ export class CommentBusiness {
         } 
 
         await this.commentDatabase.createComment(inputDb)
+
+        if(parentCommentId){
+
+            const commentDb = await this.commentDatabase.findCommentById(parentCommentId) as CommentDB
+
+            const newParentIdAmount = new Comment(
+                commentDb.id,
+                commentDb.id_user,
+                commentDb.post_id,
+                commentDb.parent_comment_id,
+                commentDb.amount_comment,
+                commentDb.content,
+                commentDb.created_at,
+                commentDb.updated_at,
+                commentDb.like,
+                commentDb.dislike,
+                []
+            )
+
+            newParentIdAmount.setAmountComment(newParentIdAmount.getAmountComment() + 1)
+
+            const inputDatas: InputEditCommentDB = {
+                id: newParentIdAmount.getId(),
+                content: newParentIdAmount.getContent(),
+                updated_at: newParentIdAmount.getUpdatedAt(),
+                amount_comment: newParentIdAmount.getAmountComment()
+            }
+
+            await this.commentDatabase.editComment(inputDatas)
+        }
+        const newPost = new Post(
+            post.id,
+            post.user_id,
+            post.content,
+            post.like,
+            post.dislike,
+            post.amount_comments,
+            post.created_at,
+            post.updated_at
+        )
+        
+        newPost.setAmountComments(newPost.getAmountComments() + 1)
+
+        const datasUpdatePost: InputEditDB = {
+            id: newPost.getId(),
+            content: newPost.getContent(),
+            updateAt: newPost.getUpdatedAt(),
+            amountComments: newPost.getAmountComments()
+        }
+
+        await this.postDatabase.editPost(datasUpdatePost)
 
         return{
             message: "Comentário criado com sucesso!"
@@ -105,7 +156,7 @@ export class CommentBusiness {
         comment.setContent(content)
         comment.setUpdateAt(new Date().toISOString())
 
-        await this.commentDatabase.editComment({id, content, updated_at: comment.getUpdatedAt()})
+        await this.commentDatabase.editComment({id, content, updated_at: comment.getUpdatedAt(), amount_comment: comment.getAmountComment()})
 
         return {
             message: "Comentário editado com sucesso!"
@@ -143,6 +194,30 @@ export class CommentBusiness {
         }
 
         await this.commentDatabase.deleteComment(id)
+
+        if(typeof(commentDb.parent_comment_id) === "string"){
+            const newPost = new Post(
+                commentDb.id,
+                commentDb.id_user,
+                commentDb.content,
+                commentDb.like,
+                commentDb.dislike,
+                commentDb.amount_comment,
+                commentDb.created_at,
+                commentDb.updated_at
+            )
+            
+            newPost.setAmountComments(newPost.getAmountComments() - 1)
+    
+            const datasUpdatePost: InputEditDB = {
+                id: newPost.getId(),
+                content: newPost.getContent(),
+                updateAt: newPost.getUpdatedAt(),
+                amountComments: newPost.getAmountComments()
+            }
+    
+            await this.postDatabase.editPost(datasUpdatePost)
+        }
 
         return {
             message: "Comentário deletado com sucesso!"

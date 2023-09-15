@@ -38,7 +38,8 @@ export interface InputPostDB {
 export interface InputEditDB {
     id: string,
     content: string,
-    updateAt: string
+    updateAt: string,
+    amountComments: number
 }
 
 export interface CommentDB {
@@ -65,5 +66,6 @@ export interface InputCommentDB {
 export interface InputEditCommentDB {
     id: string 
     content: string
-    updated_at: string
+    updated_at: string,
+    amount_comment: number
 }
