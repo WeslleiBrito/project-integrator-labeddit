@@ -100,7 +100,7 @@ describe('Testando o delete Comment.', () => {
         }
     })
 
-    test('Deve gerar um erro quando um usuário admin tenta deletar um comentário de outro admin ou do master.', async () => {
+    test('Deve gerar um erro quando um usuário admin tenta deletar um comentário de outro admin ou da conta master.', async () => {
 
         expect.assertions(1)
 
