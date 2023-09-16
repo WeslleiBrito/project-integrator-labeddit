@@ -8,7 +8,7 @@ import { InputGetCommentsDTO, OutputGetCommentsDTO } from "../dtos/comments/Inpu
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
-import { Comment } from "../models/Comment";
+import { Comment, CommentModel } from "../models/Comment";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { CommentDB, InputCommentDB, USER_ROLES } from "../types/types";
@@ -149,25 +149,48 @@ export class CommentBusiness {
         }
     }
 
-    private groupsComments = (comments: CommentDB[], parentId: string | null = null) => {
-        const result = []
+    private mapComment = (commentDB: CommentDB): CommentModel => {
+        return {
+            id: commentDB.id,
+            idUser: commentDB.id_user,
+            postId: commentDB.post_id,
+            parentCommentId: commentDB.parent_comment_id,
+            amountComment: commentDB.amount_comment,
+            content: commentDB.content,
+            createdAt: commentDB.created_at,
+            updatedAt: commentDB.updated_at,
+            like: commentDB.like,
+            dislike: commentDB.dislike,
+            answers: (commentDB.answer || []).map(this.mapComment)
+        };
+    };
+
+    private groupsComments = (comments: CommentDB[], parentId: string | null = null): CommentModel[] => {
+        const result: CommentModel[] = []
 
         for (const comment of comments) {
             if (comment.parent_comment_id === parentId){
                 const children = this.groupsComments(comments, comment.id)
-                if (children.length > 0) {
-                    comment.answer = children;
-                }else{
-                    comment.answer = [];
-                }
+                const commentModel = this.mapComment(comment)
 
-                result.push(comment)
+                if (children.length > 0) {
+
+                    commentModel.answers = children;
+
+                }else{
+                    
+                    commentModel.answers = [];
+                }
+                
+                result.push(commentModel)
             }
+
         }
 
         return result
     }
 
+   
     public getComments = async (input: InputGetCommentsDTO) => {
 
         const {token} = input

@@ -13,7 +13,7 @@ export class Comment {
         private updatedAt: string,
         private like: number,
         private dislike: number,
-        private answers: Comment[]
+        private answers: CommentModel[]
     ){}
 
     public getCommentModel = (): CommentModel => {
@@ -93,7 +93,7 @@ export class Comment {
         this.amountComment = newAmountComment
     }
     
-    public getAnswers = (): Comment[]  => {
+    public getAnswers = (): CommentModel[]  => {
         return this.answers
     }
 
@@ -110,5 +110,5 @@ export interface CommentModel {
         updatedAt: string,
         like: number,
         dislike: number,
-        answers: Comment[]
+        answers: CommentModel[]
 }
