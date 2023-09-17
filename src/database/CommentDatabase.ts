@@ -38,10 +38,5 @@ export class CommentDatabase extends BaseDatabase {
 
         return result
     }
-
-    public getCommentsByPostId = async (idPost: string) => {
-
-        const result = await CommentDatabase.connection(CommentDatabase.TABLE_COMMENTS).where({post_id: idPost})
-    }
     
 }

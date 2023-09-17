@@ -1,5 +1,4 @@
 import { CommentBusiness } from '../../../src/business/CommentBusiness'
-import { UserDatabase } from '../../../src/database/UserDatabase'
 import { CommentDatabaseMock } from '../../mocks/CommentDatabaseMock'
 import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
 import { PostDatabaseMock } from '../../mocks/PostDatabaseMock'
@@ -23,7 +22,7 @@ describe('Testando o delete Comment.', () => {
 
         const input = InputDeleteCommentSchema.parse(
             {
-                id: 'idMockComment6',
+                id: 'idMockComment1',
                 token: 'tokenMockNormal03'
             }
         )
@@ -87,8 +86,8 @@ describe('Testando o delete Comment.', () => {
 
             const input = InputDeleteCommentSchema.parse(
                 {
-                    id: "idMockComment7",
-                    token: "tokenMockNormal03"
+                    id: "idMockComment1",
+                    token: "tokenMockNormal02"
                 }
             )
     
@@ -108,7 +107,7 @@ describe('Testando o delete Comment.', () => {
 
             const input = InputDeleteCommentSchema.parse(
                 {
-                    id: "idMockComment9",
+                    id: "idMockComment3",
                     token: "tokenMockAdmin02"
                 }
             )

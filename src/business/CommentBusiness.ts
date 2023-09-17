@@ -88,24 +88,8 @@ export class CommentBusiness {
             throw new BadRequestError("Sua conta não tem autorização para editar este comentário")
         }
 
-        const comment = new Comment(
-            commentDb.id,
-            commentDb.id_user,
-            commentDb.post_id,
-            commentDb.parent_comment_id,
-            commentDb.amount_comment,
-            commentDb.content,
-            commentDb.created_at,
-            commentDb.updated_at,
-            commentDb.like,
-            commentDb.dislike,
-            []
-        )
 
-        comment.setContent(content)
-        comment.setUpdateAt(new Date().toISOString())
-
-        await this.commentDatabase.editComment({id, content, updated_at: comment.getUpdatedAt()})
+        await this.commentDatabase.editComment({id, content, updated_at: content})
 
         return {
             message: "Comentário editado com sucesso!"
@@ -155,13 +139,13 @@ export class CommentBusiness {
             idUser: commentDB.id_user,
             postId: commentDB.post_id,
             parentCommentId: commentDB.parent_comment_id,
-            amountComment: commentDB.amount_comment,
             content: commentDB.content,
             createdAt: commentDB.created_at,
             updatedAt: commentDB.updated_at,
             like: commentDB.like,
             dislike: commentDB.dislike,
-            answers: (commentDB.answer || []).map(this.mapComment)
+            amountComment: commentDB.answer ? commentDB.answer.length : 0,
+            answers: (commentDB.answer || []).map(this.mapComment),
         };
     };
 
@@ -176,6 +160,7 @@ export class CommentBusiness {
                 if (children.length > 0) {
 
                     commentModel.answers = children;
+                    commentModel.amountComment = commentModel.answers.length
 
                 }else{
                     
@@ -190,7 +175,6 @@ export class CommentBusiness {
         return result
     }
 
-   
     public getComments = async (input: InputGetCommentsDTO) => {
 
         const {token} = input

@@ -8,7 +8,6 @@ const commentMock: CommentDB[] = [
       post_id: 'idPost6',
       content: "Comentário inicial",
       parent_comment_id: null,
-      amount_comment: 6,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
       like: 20,
@@ -21,7 +20,6 @@ const commentMock: CommentDB[] = [
       post_id: 'idPost6',
       content: "Comentando o primeiro comentário",
       parent_comment_id: 'idMockComment1',
-      amount_comment: 3,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
       like: 6,
@@ -34,88 +32,11 @@ const commentMock: CommentDB[] = [
       post_id: 'idPost6',
       content: "Segundo comentário direto no post6.",
       parent_comment_id: null,
-      amount_comment: 0,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
       like: 2,
       dislike: 6
-    },
-
-    {
-      id: 'idMockComment4',
-      id_user: 'idMockAdmin01',
-      post_id: 'idPost4',
-      content: "Comentário inicial no post 4",
-      parent_comment_id: null,
-      amount_comment: 6,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      like: 7,
-      dislike: 0
-    },
-    {
-      id: 'idMockComment5',
-      id_user: 'idMockMaster',
-      post_id: 'idPost4',
-      content: "Comentando o comentário 4",
-      parent_comment_id: 'idMockComment4',
-      amount_comment: 2,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      like: 0,
-      dislike: 0
-    },
-    {
-      id: 'idMockComment6',
-      id_user: 'idMockNormal03',
-      post_id: 'idPost4',
-      content: "Comentando o comentário 5",
-      parent_comment_id: null,
-      amount_comment: 1,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      like: 8,
-      dislike: 6
-    },
-    {
-      id: 'idMockComment7',
-      id_user: 'idMockAdmin02',
-      post_id: 'idPost1',
-      content: "Comentário inicial no post 1",
-      parent_comment_id: null,
-      amount_comment: 0,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      like: 1,
-      dislike: 9
-    },
-
-    {
-      id: 'idMockComment8',
-      id_user: 'idMockAdmin01',
-      post_id: 'idPost3',
-      content: "Comentário do comentário 6",
-      parent_comment_id: "idMockComment6",
-      amount_comment: 0,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      like: 1,
-      dislike: 9
-    },
-
-    {
-      id: 'idMockComment9',
-      id_user: 'idMockMaster',
-      post_id: 'idPost3',
-      content: "Comentário do master",
-      parent_comment_id: "idMockComment6",
-      amount_comment: 0,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      like: 1,
-      dislike: 9
-    },
-
+    }
 ]
 
 
@@ -137,4 +58,10 @@ export class CommentDatabaseMock extends BaseDatabase {
     public editComment = async (input: InputEditCommentDB): Promise<void> => {}
 
     public deleteComment = async (id: string): Promise<void> => {}
+
+    public getComments = async (): Promise<CommentDB[]> => {
+
+      return commentMock
+      
+    }
 }

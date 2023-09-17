@@ -49,7 +49,6 @@ export interface CommentDB {
     id_user: string,
     like: number,
     dislike: number,
-    amount_comment: number,
     created_at: string,
     updated_at: string,
     answer?: CommentDB[]

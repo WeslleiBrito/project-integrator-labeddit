@@ -24,7 +24,7 @@ describe('Testando o edit-comment', () => {
         const input = InputEditCommentSchema.parse(
             {
                 token: "tokenMockNormal03",
-                id: "idMockComment6",
+                id: "idMockComment1",
                 content: "Teste de sucesso da edição"
             }
         )
@@ -91,7 +91,7 @@ describe('Testando o edit-comment', () => {
 
             const input = InputEditCommentSchema.parse(
                 {
-                    id: "idMockComment6",
+                    id: "idMockComment1",
                     token: "tokenMockNormal01",
                     content: "Teste de usuário não autorizado"
                 }
