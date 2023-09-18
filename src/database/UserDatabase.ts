@@ -1,4 +1,3 @@
-import { InputDeleteAccountDTO } from "../dtos/user/InputDeleteAccount.dto"
 import { UserDB } from "../types/types"
 import { BaseDatabase } from "./BaseDatabase"
 
@@ -46,6 +45,7 @@ export class UserDatabase extends BaseDatabase implements UserDatabaseI {
         await UserDatabase.connection(UserDatabase.TABLE_USER).del().where({id})
 
     }
+
 }
 
 export interface UserDatabaseI {

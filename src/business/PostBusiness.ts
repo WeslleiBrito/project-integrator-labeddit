@@ -12,7 +12,7 @@ import { CommentModel } from "../models/Comment";
 import { Post} from "../models/Post";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
-import { CommentDB, USER_ROLES} from "../types/types";
+import { CommentDB, USER_ROLES, UserDB} from "../types/types";
 
 
 
@@ -36,9 +36,13 @@ export class PostBusiness {
             throw new BadRequestError("Refaça o login, para renovar seu token.")
         }
 
+        const find = await this.userDatabase.findUserById(tokenIsValid.id) as UserDB
+
+        const nameUser = find.name
+
         const id = this.idGenerator.generate()
 
-        await this.postDatabase.createPost({id, content, user_id: tokenIsValid.id})
+        await this.postDatabase.createPost({id, content, user_id: tokenIsValid.id, name_user: nameUser})
 
         return {
             message: "Post criado com sucesso!"
@@ -167,7 +171,7 @@ export class PostBusiness {
 
             return new Post(
                 post.id,
-                post.user_id,
+                {id: post.user_id, name: post.name_user},
                 post.content,
                 post.like,
                 post.dislike,

@@ -21,10 +21,10 @@ export interface UserDB extends InputSignupDTO {
 export interface PostDB {
     id: string
     user_id: string
+    name_user: string
     content: string
     like: number
     dislike: number
-    amount_comments: number
     created_at: string
     updated_at: string
 }
@@ -32,7 +32,8 @@ export interface PostDB {
 export interface InputPostDB {
     id: string
     user_id: string
-    content: string
+    content: string,
+    name_user: string
 }
 
 export interface InputEditDB {

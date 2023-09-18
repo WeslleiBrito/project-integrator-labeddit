@@ -4,7 +4,7 @@ export class Post {
 
     constructor(
         private id: string,
-        private userId: string,
+        private creator: {id: string, name: string},
         private content: string,
         private like: number,
         private dislike: number,
@@ -19,7 +19,11 @@ export class Post {
     }
 
     public getUserId = (): string => {
-        return this.userId
+        return this.creator.id
+    }
+
+    public getNameUser = (): string => {
+        return this.creator.name
     }
 
     public getContent = (): string => {
@@ -54,8 +58,11 @@ export class Post {
 
         const model: PostModel = {
             id: this.id,
-            userId: this.userId,
             content: this.content,
+            creator: {
+                id: this.creator.id,
+                name: this.creator.name
+            },
             like: this.like,
             dislike: this.dislike,
             amountComments: this.amountComments,
@@ -79,12 +86,15 @@ export class Post {
 
 export interface PostModel {
     id: string
-    userId: string
     content: string
     like: number
     dislike: number
     amountComments: number
     createdAt: string
     updatedAt: string
+    creator: {
+        id: string,
+        name: string
+    }
     comments: CommentModel[]
 }
