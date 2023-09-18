@@ -95,4 +95,9 @@ export class PostDatabaseMock extends BaseDatabase {
     public deletePost = async (id: string): Promise<void> => {
 
     }
+
+    public getPosts = async (): Promise<PostDB[]> => {
+
+        return postsMock
+    }
 }

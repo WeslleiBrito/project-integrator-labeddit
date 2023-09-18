@@ -1,6 +1,5 @@
 import { CommentBusiness } from '../../../src/business/CommentBusiness'
 import { UserDatabase } from '../../../src/database/UserDatabase'
-import { InputCreateCommentSchema } from '../../../src/dtos/comments/InputCreateComment.dto'
 import { InputGetCommentsSchema } from '../../../src/dtos/comments/InputGetComments.dto'
 import { CommentModel } from '../../../src/models/Comment'
 import { CommentDatabaseMock } from '../../mocks/CommentDatabaseMock'

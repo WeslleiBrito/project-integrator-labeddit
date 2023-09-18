@@ -1,3 +1,4 @@
+import { CommentModel } from "./Comment"
 
 export class Post {
 
@@ -9,7 +10,8 @@ export class Post {
         private dislike: number,
         private amountComments: number,
         private createdAt: string,
-        private updatedAt: string
+        private updatedAt: string,
+        private comments: CommentModel[]
     ){}
 
     public getId = (): string => {
@@ -44,6 +46,10 @@ export class Post {
         return this.updatedAt
     }
     
+    public getComments = (): CommentModel[] => {
+        return this.comments
+    }
+
     public getPostModel = (): PostModel => {
 
         const model: PostModel = {
@@ -54,7 +60,8 @@ export class Post {
             dislike: this.dislike,
             amountComments: this.amountComments,
             createdAt: this.createdAt,
-            updatedAt: this.updatedAt
+            updatedAt: this.updatedAt,
+            comments: this.comments
         }
 
         return model
@@ -79,4 +86,5 @@ export interface PostModel {
     amountComments: number
     createdAt: string
     updatedAt: string
+    comments: CommentModel[]
 }

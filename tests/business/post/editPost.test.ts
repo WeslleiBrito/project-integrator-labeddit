@@ -1,6 +1,7 @@
 import {PostBusiness} from '../../../src/business/PostBusiness'
 import { InputEditPostSchema } from '../../../src/dtos/post/InputEditPost.dto'
 import { BaseError } from '../../../src/errors/BaseError'
+import { CommentDatabaseMock } from '../../mocks/CommentDatabaseMock'
 import { IdGeneratorMock } from '../../mocks/IdGeneratorMock'
 import { PostDatabaseMock } from '../../mocks/PostDatabaseMock'
 import { TokenManagerMock } from '../../mocks/TokenManagerMock'
@@ -8,6 +9,7 @@ import { UserDatabaseMock } from '../../mocks/UserDatabaseMock'
 
 const postBusiness = new PostBusiness(
     new PostDatabaseMock(),
+    new CommentDatabaseMock(),
     new UserDatabaseMock(),
     new TokenManagerMock(),
     new IdGeneratorMock()

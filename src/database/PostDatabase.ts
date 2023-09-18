@@ -36,6 +36,13 @@ export class PostDatabase extends BaseDatabase implements PostDatabaseI {
         await PostDatabase.connection(PostDatabase.TABLE_POSTS).del().where({id})
 
     }
+
+    public getPosts = async () => {
+        
+        const result: PostDB[] = await PostDatabase.connection(PostDatabase.TABLE_POSTS)
+
+        return result
+    }
 }
 
 export interface PostDatabaseI {
