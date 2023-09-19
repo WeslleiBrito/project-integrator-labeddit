@@ -157,4 +157,21 @@ describe("Teste do getPost", () => {
 
         expect(result).toEqual(mockPostComments)
     })
+
+    test('Deve gerar um erro caso o token seja inválido', async () => {
+
+        expect.assertions(1)
+        try {
+            const input = InputGetPostsSchema.parse(
+                {
+                    token: "token-invalido"
+                }
+            )
+
+            await postBusiness.getPosts(input)
+        } catch (error) {
+            expect(error).toBeDefined()
+        }
+    })
+
 })
