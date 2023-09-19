@@ -8,7 +8,7 @@ const postsMock: PostDB[] = [
         content: "Conteudo 1",
         like: 3,
         dislike: 15,
-        amount_comments: 30,
+        name_user: "Normal 1",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     },
@@ -18,7 +18,7 @@ const postsMock: PostDB[] = [
         content: "Conteudo 2",
         like: 100,
         dislike: 13,
-        amount_comments: 350,
+        name_user: "Normal 2",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     },
@@ -28,7 +28,7 @@ const postsMock: PostDB[] = [
         content: "Conteudo 3",
         like: 7,
         dislike: 12,
-        amount_comments: 30,
+        name_user: "Normal 3",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     },
@@ -38,7 +38,7 @@ const postsMock: PostDB[] = [
         content: "Conteudo 4",
         like: 6,
         dislike: 2,
-        amount_comments: 30,
+        name_user: "Admin 1",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     },
@@ -49,7 +49,7 @@ const postsMock: PostDB[] = [
         content: "Conteudo 4",
         like: 3,
         dislike: 15,
-        amount_comments: 30,
+        name_user: "Admin 2",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     },
@@ -59,7 +59,7 @@ const postsMock: PostDB[] = [
         content: "Conteudo 5",
         like: 3,
         dislike: 15,
-        amount_comments: 30,
+        name_user: "Master",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
     },
