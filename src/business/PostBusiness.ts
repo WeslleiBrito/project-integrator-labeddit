@@ -1,7 +1,7 @@
 import { CommentDatabase } from "../database/CommentDatabase";
 import { PostDatabase } from "../database/PostDatabase";
 import { UserDatabase } from "../database/UserDatabase";
-import { InputGetPostsDTO, OutputGetPostsDTO } from "../dtos/post/ImputGetPosts.dto";
+import { InputGetPostsDTO, OutputGetPostsDTO } from "../dtos/post/InputGetPosts.dto";
 import { InputDeletePostDTO, OutputDeletePostDTO } from "../dtos/post/InputDeletePost.dto";
 import { InputEditPostDTO, OutputEditPostDTO } from "../dtos/post/InputEditPost.dto";
 import { InputPostDTO, OutputPostDTO } from "../dtos/post/InputPost.dto";
@@ -69,7 +69,7 @@ export class PostBusiness {
             throw new UnauthorizedError("Sua conta não tem permissão para fazer a edição deste post.")
         }
 
-        await this.postDatabase.editPost({id, content, updateAt: new Date().toISOString()})
+        await this.postDatabase.editPost({id, content, updateAt: new Date().toISOString(), like: post.like, dislike: post.dislike})
 
         return {
             message: "Post editado com sucesso!"

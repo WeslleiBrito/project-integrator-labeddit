@@ -5,7 +5,7 @@ import { BaseError } from "../errors/BaseError";
 import { InputPostSchema } from "../dtos/post/InputPost.dto";
 import { InputEditPostSchema } from "../dtos/post/InputEditPost.dto";
 import { InputDeletePostSchema } from "../dtos/post/InputDeletePost.dto";
-import { InputGetPostsSchema } from "../dtos/post/ImputGetPosts.dto";
+import { InputGetPostsSchema } from "../dtos/post/InputGetPosts.dto";
 
 
 export class PostController {

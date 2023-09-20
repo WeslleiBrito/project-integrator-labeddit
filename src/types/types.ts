@@ -39,7 +39,9 @@ export interface InputPostDB {
 export interface InputEditDB {
     id: string,
     content: string,
-    updateAt: string
+    updateAt: string,
+    like: number,
+    dislike: number
 }
 
 export interface CommentDB {
@@ -67,5 +69,17 @@ export interface InputEditCommentDB {
     id: string 
     content: string
     updated_at: string
+}
+
+export interface LikeDislikePostDB {
+    user_id: string
+    post_id: string
+    like: 0 | 1
+}
+
+export interface LikeDislikeCommentDB {
+    user_id: string
+    comment_id: string
+    like: 0 | 1
 }
 

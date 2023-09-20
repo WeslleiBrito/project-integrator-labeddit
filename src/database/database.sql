@@ -37,5 +37,23 @@ CREATE TABLE IF NOT EXISTS comments_posts (
 	FOREIGN KEY(id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+CREATE TABLE
+    IF NOT EXISTS likes_dislikes_posts (
+        user_id TEXT NOT NULL,
+        post_id TEXT NOT NULL,
+        like INTEGER NOT NULL,
+        FOREIGN KEY(user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY(post_id) REFERENCES posts(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+	
+CREATE TABLE
+    IF NOT EXISTS likes_dislikes_comments_posts (
+        user_id TEXT NOT NULL,
+        comment_id TEXT NOT NULL,
+        like INTEGER NOT NULL,
+        FOREIGN KEY(user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY(comment_id) REFERENCES comments(id) ON UPDATE CASCADE ON DELETE CASCADE
+    );
+
 
 DROP TABLE IF EXISTS comments_posts;
