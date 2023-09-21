@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { BaseError } from "../errors/BaseError";
 import { ZodError } from "zod";
 import { LikeDislikePostBusiness } from "../business/LikeDislikePostBusiness";
-import { InputLikeDislikeSchema } from "../dtos/likeDislikePosts/InputLikeDislikePost.dto";
+import { InputLikeDislikePostSchema } from "../dtos/likeDislikePosts/InputLikeDislikePost.dto";
 
 
 export class LikeDislikePostController {
@@ -14,7 +14,7 @@ export class LikeDislikePostController {
     public likeDislike = async (req: Request, res: Response) => {
 
         try {
-            const input = InputLikeDislikeSchema.parse(
+            const input = InputLikeDislikePostSchema.parse(
                 {
                     token: req.headers.authorization,
                     id: req.params.id,

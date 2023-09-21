@@ -38,17 +38,19 @@ export class LikeDislikePostBusiness {
         }
         
         const likeDislikeExist = await this.likeDislikePostDatabase.findLikeByPostByUser({user_id: tokenIsValid.id, post_id: id})
+        const output: OutputLikeDislikePostDTO = {message: ""}
 
         if(likeDislikeExist){
             if(likeDislikeExist.like === (like ? 1 : 0)) {
                 await this.likeDislikePostDatabase.deleteLike({user_id: tokenIsValid.id, post_id: id})
-
+                
                 if(like){
                     await this.postDatabase.editPost({content: post.content, id: id, like: post.like - 1, dislike: post.dislike, updateAt: post.updated_at})
                 }else{
                     await this.postDatabase.editPost({content: post.content, id: id, like: post.like, dislike: post.dislike - 1, updateAt: post.updated_at})
                 }
 
+                output.message = `${like ? "Like" : "Dislike" } deletado com sucesso.`
             }else{
                 if(like){
                     await this.likeDislikePostDatabase.editLike({post_id: id, user_id: tokenIsValid.id, like: 1 })
@@ -57,6 +59,8 @@ export class LikeDislikePostBusiness {
                     await this.likeDislikePostDatabase.editLike({post_id: id, user_id: tokenIsValid.id, like: 0 })
                     await this.postDatabase.editPost({content: post.content, id: id, like: post.like - 1, dislike: post.dislike + 1, updateAt: post.updated_at})
                 }
+
+                output.message = `${like ? "Dislike editado para like" : "Like editado para dislike" } com sucesso.`
             }
         }else{
             
@@ -73,11 +77,11 @@ export class LikeDislikePostBusiness {
             }else{
                 await this.postDatabase.editPost({content: post.content, id: id, like: post.like, dislike: post.dislike + 1, updateAt: post.updated_at})
             }
+
+            output.message = `${like ? "Like" : "Dislike" } criado com sucesso.`
         }
         
         
-        return {
-            message: `${like ? "Like" : "Dislike" } criado com sucesso.`
-        }
+        return output
     }
 }
