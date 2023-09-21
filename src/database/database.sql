@@ -47,7 +47,7 @@ CREATE TABLE
     );
 	
 CREATE TABLE
-    IF NOT EXISTS likes_dislikes_comments_posts (
+    IF NOT EXISTS likes_dislikes_comments (
         user_id TEXT NOT NULL,
         comment_id TEXT NOT NULL,
         like INTEGER NOT NULL,

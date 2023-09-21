@@ -69,12 +69,14 @@ export interface InputEditCommentDB {
     id: string 
     content: string
     updated_at: string
+    like: number
+    dislike: number
 }
 
 export interface LikeDislikePostDB {
     user_id: string
     post_id: string
-    like: 0 | 1
+    like: number
 }
 
 export interface LikeDislikeCommentDB {
