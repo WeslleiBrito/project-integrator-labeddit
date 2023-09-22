@@ -20,5 +20,5 @@ app.listen(Number(process.env.PORT || 3003), () => {
 app.use('/users', userRouter)
 app.use('/post', postRouter)
 app.use('/comment', commentRouter)
-app.use('/likeDislikePost', likeDislikePostRouter)
-app.use('/likeDislikeComment', likeDislikeCommentRouter)
+app.use('/posts', likeDislikePostRouter)
+app.use('/comments', likeDislikeCommentRouter)
