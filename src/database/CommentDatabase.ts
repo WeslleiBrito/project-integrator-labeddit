@@ -20,9 +20,9 @@ export class CommentDatabase extends BaseDatabase {
 
     public editComment = async (input: InputEditCommentDB): Promise<void> => {
 
-        const {id, content, updated_at} = input
+        const {id, content, updated_at, dislike, like} = input
 
-        await CommentDatabase.connection(CommentDatabase.TABLE_COMMENTS).update({content, updated_at}).where({id})
+        await CommentDatabase.connection(CommentDatabase.TABLE_COMMENTS).update({content, updated_at, like, dislike}).where({id})
 
     }
 

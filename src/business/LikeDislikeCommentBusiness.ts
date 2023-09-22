@@ -1,17 +1,15 @@
 import { CommentDatabase } from "../database/CommentDatabase";
 import { LikeDislikeCommentDatabase } from "../database/LikeDislikeCommentDatabase";
-import { LikeDislikePostDatabase } from "../database/LikeDislikePostDatabase";
-import { PostDatabase } from "../database/PostDatabase";
 import { InputLikeDislikeCommentsDTO } from "../dtos/likeDislikeComments/InputLikeDislikeComments.dto";
-import { InputLikeDislikePostDTO, OutputLikeDislikePostDTO } from "../dtos/likeDislikePosts/InputLikeDislikePost.dto";
+import { OutputLikeDislikePostDTO } from "../dtos/likeDislikePosts/InputLikeDislikePost.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
 import { UnauthorizedError } from "../errors/UnauthorizedError";
 import { TokenManager } from "../services/TokenManager";
-import { LikeDislikePostDB } from "../types/types";
+import { LikeDislikeCommentDB } from "../types/types";
 
 
-export class LikeDislikePostBusiness {
+export class LikeDislikeCommentBusiness {
 
     constructor (
         private likeDislikeCommentDatabase: LikeDislikeCommentDatabase,
@@ -50,35 +48,35 @@ export class LikeDislikePostBusiness {
                 if(like){
                     await this.commentDatabase.editComment({content: comment.content, id: id, like: comment.like - 1, dislike: comment.dislike, updated_at: comment.updated_at})
                 }else{
-                    await this.commentDatabase.editPost({content: post.content, id: id, like: post.like, dislike: post.dislike - 1, updateAt: post.updated_at})
+                    await this.commentDatabase.editComment({content: comment.content, id: id, like: comment.like, dislike: comment.dislike - 1, updated_at: comment.updated_at})
                 }
 
                 output.message = `${like ? "Like" : "Dislike" } deletado com sucesso.`
             }else{
                 if(like){
-                    await this.likeDislikeCommentDatabase.editLike({post_id: id, user_id: tokenIsValid.id, like: 1 })
-                    await this.commentDatabase.editPost({content: post.content, id: id, like: post.like + 1, dislike: post.dislike - 1, updateAt: post.updated_at})
+                    await this.likeDislikeCommentDatabase.editLike({comment_id: id, user_id: tokenIsValid.id, like: 1 })
+                    await this.commentDatabase.editComment({content: comment.content, id: id, like: comment.like + 1, dislike: comment.dislike - 1, updated_at: comment.updated_at})
                 }else{
-                    await this.likeDislikeCommentDatabase.editLike({post_id: id, user_id: tokenIsValid.id, like: 0 })
-                    await this.commentDatabase.editPost({content: post.content, id: id, like: post.like - 1, dislike: post.dislike + 1, updateAt: post.updated_at})
+                    await this.likeDislikeCommentDatabase.editLike({comment_id: id, user_id: tokenIsValid.id, like: 0 })
+                    await this.commentDatabase.editComment({content: comment.content, id: id, like: comment.like - 1, dislike: comment.dislike + 1, updated_at: comment.updated_at})
                 }
 
                 output.message = `${like ? "Dislike editado para like" : "Like editado para dislike" } com sucesso.`
             }
         }else{
             
-            const inputDB: LikeDislikePostDB = {
+            const inputDB: LikeDislikeCommentDB = {
                 user_id: tokenIsValid.id,
-                post_id: id,
+                comment_id: id,
                 like: like ? 1 : 0
             }
 
             await this.likeDislikeCommentDatabase.createLike(inputDB)
 
             if(like){
-                await this.commentDatabase.editPost({content: post.content, id: id, like: post.like + 1, dislike: post.dislike, updateAt: post.updated_at})
+                await this.commentDatabase.editComment({content: comment.content, id: id, like: comment.like + 1, dislike: comment.dislike, updated_at: comment.updated_at})
             }else{
-                await this.commentDatabase.editPost({content: post.content, id: id, like: post.like, dislike: post.dislike + 1, updateAt: post.updated_at})
+                await this.commentDatabase.editComment({content: comment.content, id: id, like: comment.like, dislike: comment.dislike + 1, updated_at: comment.updated_at})
             }
 
             output.message = `${like ? "Like" : "Dislike" } criado com sucesso.`

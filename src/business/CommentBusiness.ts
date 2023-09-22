@@ -89,7 +89,7 @@ export class CommentBusiness {
         }
 
 
-        await this.commentDatabase.editComment({id, content, updated_at: content})
+        await this.commentDatabase.editComment({id, content, updated_at: content, like: commentDb.like, dislike: commentDb.dislike})
 
         return {
             message: "Comentário editado com sucesso!"

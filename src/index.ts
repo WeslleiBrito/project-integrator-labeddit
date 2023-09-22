@@ -5,6 +5,7 @@ import dontenv from 'dotenv'
 import { postRouter } from './router/postRouter'
 import { commentRouter } from './router/commentRouter'
 import { likeDislikePostRouter } from './router/likeDislikePostRouter'
+import { likeDislikeCommentRouter } from './router/likeDislikeCommentRouter'
 
 dontenv.config()
 
@@ -20,3 +21,4 @@ app.use('/users', userRouter)
 app.use('/post', postRouter)
 app.use('/comment', commentRouter)
 app.use('/likeDislikePost', likeDislikePostRouter)
+app.use('/likeDislikeComment', likeDislikeCommentRouter)
