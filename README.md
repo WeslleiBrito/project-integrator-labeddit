@@ -12,8 +12,9 @@
     - <a href="#3-create-post-post-posts">POST /create-post</a>
     - <a href="#4-edit-post-put-postsid">PUT /edit-post</a>
     - <a href="#5-delete-post-delete-postsid">DELETE /delete-post</a>
-    - <a href="#6-like-or-dislike-post-postsidlike">POST /like-dislike</a>
-    - <a href="#7-get-post-get-posts">GET /get-posts</a>
+    - <a href="#6-like-or-dislike-post-post-postsidlike">POST /like-dislike-posts</a>
+    - <a href="#7-like-or-dislike-comment-post-commentsidlike">POST /get-posts-comments</a>
+    - <a href="#8-get-post-get-posts">GET /get-posts</a>
 7. [Pessoas autoras](#pessoas-autoras)
 8. [Contatos](#contatos)
 
