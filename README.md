@@ -23,7 +23,7 @@ Bem-vindo à documentação da API do Labook! A API labook-backend foi projetada
 
 
 ---
-## Documentação Postaman :small_red_triangle: <br/>
+## Documentação Postaman
 - #### [Link](https://documenter.getpostman.com/view/26586405/2s9Y5YR2Tz)
 ## Executando a API
 
@@ -178,9 +178,10 @@ Output:
 
 Exclui um post existente.
 
-__*Observação: Apenas o proprietário ou usuário admin ou master podem deletar um post.*__
+__*Observação: Apenas o proprietário ou usuários admin e master podem deletar um post, sendo que admin não pode deletar o post de outro usuário admin ou master.*__
 
-Input:
+Input:<br/>
+
 Cabeçalhos [headers]
 - `headers.authorization = "token jwt"`
 
@@ -214,7 +215,7 @@ __*Caso dê um dislike em um post que tenha dado like, o dislike sobrescreve o l
 - `params.id = "id"`
 
 **Corpo da Solicitação [body]:**
-Input:
+<br/>Input:
 ```json
 {
   "like": true
@@ -505,6 +506,229 @@ Output:
 ]
 ```
 
+### 9. Create Comment `[Post] /comment/post/:id`
+
+Faz um comentário em um post.
+
+**Cabeçalhos [headers]:**
+- `headers.authorization = "token jwt"`
+
+**Parâmetros [params]**
+- `params.id = "id"`
+
+__*Observação: O id que será informado através do "params" é o id do post ao qual está sendo comentado.*__
+
+**Corpo da Solicitação [body]:**
+<br/>Input:
+
+```json
+{
+  "content": "Conteúdo do comentário"
+}
+```
+<br/>Output:
+
+```json
+{
+  "message": "Comentário criado com sucesso!"
+}
+```
+
+### 10. Edit Comment: `[PUT] /comment/:id`
+
+Edita um comentário existente.
+
+__*Observação: Apenas o proprietário do comentário consegue fazer edição do conteúdo.*__
+
+**Cabeçalhos [headers]:**
+- `headers.authorization = "token jwt"`
+
+**Parâmetros [params]:**
+- `params.id = "id"`
+
+**Corpo da Solicitação [body]:**
+
+Input:
+```json
+{
+  "content": "Novo Conteúdo do comentário"
+}
+```
+Output:
+```Json
+{
+  "message": "Comentário editado com sucesso!"
+}
+```
+
+### 11. Delete Comment: `[DELETE] /comment/:id`
+
+Exclui um comentário existente.
+
+__*Observação: Apenas o proprietário ou usuários admin e master podem deletar um comentário, sendo que admin não pode deletar o comentário de outro usuário admin ou master.*__
+
+Input:<br/>
+
+Cabeçalhos [headers]
+- `headers.authorization = "token jwt"`
+
+Parâmetros [params]
+- `params.id = "id"`
+
+Output:
+```json
+{
+  "message": "Comentário deletado com sucesso!"
+}
+```
+
+### 12. Get Comments: `[Get] /comment` 
+
+Devolve todos os comentário existentes.
+
+__*Observação: O comentário é retornado com todos os comentários relacionado a ele.*__
+
+**Cabeçalhos [headers]:**
+- headers.authorization = "token jwt"
+
+Output:
+
+```json
+[
+    {
+        "id": "8d888bab-6c8a-4eff-8c35-2e097bc4b0e4",
+        "idUser": "a7e70f7e-7ff3-4038-baab-11e7f0ae69bc",
+        "postId": "51e19f38-f744-46bd-a86b-df4b4378c924",
+        "parentCommentId": null,
+        "content": "Edição efetuada",
+        "createdAt": "2023-09-12 19:27:35",
+        "updatedAt": "2023-09-13T18:13:10.431Z",
+        "like": 0,
+        "dislike": 0,
+        "amountComment": 2,
+        "answers": [
+            {
+                "id": "2b499767-776d-4146-bf98-b5bd045bd287",
+                "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+                "postId": "51e19f38-f744-46bd-a86b-df4b4378c924",
+                "parentCommentId": "8d888bab-6c8a-4eff-8c35-2e097bc4b0e4",
+                "content": "Comentei o primeiro comentário",
+                "createdAt": "2023-09-16 14:35:10",
+                "updatedAt": "2023-09-16 14:35:10",
+                "like": 0,
+                "dislike": 0,
+                "amountComment": 1,
+                "answers": [
+                    {
+                        "id": "1888fea8-5f64-472d-87b4-f01b32dd9e86",
+                        "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+                        "postId": "51e19f38-f744-46bd-a86b-df4b4378c924",
+                        "parentCommentId": "2b499767-776d-4146-bf98-b5bd045bd287",
+                        "content": "Comentei o segundo comentário",
+                        "createdAt": "2023-09-16 14:36:03",
+                        "updatedAt": "2023-09-16 14:36:03",
+                        "like": 0,
+                        "dislike": 0,
+                        "amountComment": 0,
+                        "answers": []
+                    }
+                ]
+            },
+            {
+                "id": "2ecb5e54-fc08-4f02-b398-633050e21ee7",
+                "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+                "postId": "51e19f38-f744-46bd-a86b-df4b4378c924",
+                "parentCommentId": "8d888bab-6c8a-4eff-8c35-2e097bc4b0e4",
+                "content": "Fui o segundo a comentar no primeiro comentário",
+                "createdAt": "2023-09-16 14:37:39",
+                "updatedAt": "2023-09-16 14:37:39",
+                "like": 0,
+                "dislike": 0,
+                "amountComment": 0,
+                "answers": []
+            }
+        ]
+    },
+    {
+        "id": "fa13eb54-c3cc-496b-b5a3-513a92637ca5",
+        "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+        "postId": "51e19f38-f744-46bd-a86b-df4b4378c924",
+        "parentCommentId": null,
+        "content": "Comentei direto no post",
+        "createdAt": "2023-09-16 14:36:34",
+        "updatedAt": "2023-09-16 14:36:34",
+        "like": 0,
+        "dislike": 0,
+        "amountComment": 0,
+        "answers": []
+    },
+    {
+        "id": "949480f6-f7d8-4217-ab7c-87519df5ce4a",
+        "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+        "postId": "51e19f38-f744-46bd-a86b-df4b4378c924",
+        "parentCommentId": null,
+        "content": "Comentário de teste do getPosts",
+        "createdAt": "2023-09-18 14:59:35",
+        "updatedAt": "2023-09-18 14:59:35",
+        "like": 0,
+        "dislike": 0,
+        "amountComment": 0,
+        "answers": []
+    },
+    {
+        "id": "38a41e9d-5775-4572-83c6-1e17146b702a",
+        "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+        "postId": "51e19f38-f744-46bd-a86b-df4b4378c924",
+        "parentCommentId": null,
+        "content": "Comentário de teste do getPosts para ter certeza que vai receber todos os comentários",
+        "createdAt": "2023-09-18 15:02:07",
+        "updatedAt": "2023-09-18 15:02:07",
+        "like": 0,
+        "dislike": 0,
+        "amountComment": 0,
+        "answers": []
+    },
+    {
+        "id": "f0777680-ea81-44cd-8b8d-413fe85565f3",
+        "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+        "postId": "51e19f38-f744-46bd-a86b-df4b4378c924",
+        "parentCommentId": null,
+        "content": "Mais um teste, para verificar as ramificaçãoes dos omentários",
+        "createdAt": "2023-09-18 15:16:18",
+        "updatedAt": "2023-09-18 15:16:18",
+        "like": 0,
+        "dislike": 0,
+        "amountComment": 0,
+        "answers": []
+    },
+    {
+        "id": "79dd7ef3-b3f8-48e4-ae5e-a82213fbe51c",
+        "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+        "postId": "08e813eb-19f3-4c81-aaa5-c15c92941ad0",
+        "parentCommentId": null,
+        "content": "Comentando o último post",
+        "createdAt": "2023-09-18 18:51:26",
+        "updatedAt": "2023-09-18 18:51:26",
+        "like": 0,
+        "dislike": 0,
+        "amountComment": 0,
+        "answers": []
+    },
+    {
+        "id": "21f43c9c-0956-4827-a233-0ec5517bc448",
+        "idUser": "6e868237-1b57-4a80-95ed-0904a27e007d",
+        "postId": "08e813eb-19f3-4c81-aaa5-c15c92941ad0",
+        "parentCommentId": null,
+        "content": "Comentando o post para testar a documenração",
+        "createdAt": "2023-09-23 14:09:09",
+        "updatedAt": "2023-09-23 14:09:09",
+        "like": 0,
+        "dislike": 0,
+        "amountComment": 0,
+        "answers": []
+    }
+]
+```
 ## Pessoas Autoras
 ![foto](./src/assets/photos/foto.png)
 ```
