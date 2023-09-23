@@ -23,7 +23,7 @@ Bem-vindo à documentação da API do Labook! A API labook-backend foi projetada
 
 
 ---
-## Documentação Postaman
+## Documentação Postaman :small_red_triangle:
 - #### [Link](https://documenter.getpostman.com/view/26586405/2s9Y5YR2Tz)
 ## Executando a API
 
