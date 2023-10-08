@@ -9,12 +9,18 @@
 6. [Endpoints](#endpoints)
     - <a href="#1-signup-post-userssignup">POST /signup</a>
     - <a href="#2-login-post-userslogin">POST /login</a>
-    - <a href="#3-create-post-post-posts">POST /create-post</a>
-    - <a href="#4-edit-post-put-postsid">PUT /edit-post</a>
-    - <a href="#5-delete-post-delete-postsid">DELETE /delete-post</a>
-    - <a href="#6-like-or-dislike-post-post-postsidlike">POST /like-dislike-posts</a>
-    - <a href="#7-like-or-dislike-comment-post-commentsidlike">POST /get-posts-comments</a>
-    - <a href="#8-get-post-get-posts">GET /get-posts</a>
+    - <a href="#3-edit-account-put-usersaccountid">PUT /edit-account</a>
+    - <a href="#4-delete-account-put-usersaccountid">DELETE /delete-account</a>
+    - <a href="#5-create-post-post-posts">POST /create-post</a>
+    - <a href="#6-edit-post-put-postsid">PUT /edit-post</a>
+    - <a href="#7-delete-post-delete-postsid">DELETE /delete-post</a>
+    - <a href="#8-like-or-dislike-post-post-postsidlike">POST /like-dislike-posts</a>
+    - <a href="#9-get-post-get-posts">GET /get-posts</a>
+    - <a href="#10-create-comment-post-commentpostid">POST /create-comment</a>
+    - <a href="#11-edit-comment-put-commentid">PUT /edit-comment</a>
+    - <a href="#12-delete-comment-delete-commentid">DELETE /delete-comment</a>
+    - <a href="#13-get-comments-get-comment">GET /get-comment</a>
+    - <a href="#14-like-or-dislike-comment-post-commentsidlike">POST /get-posts-comments</a>
 7. [Pessoas autoras](#pessoas-autoras)
 8. [Contatos](#contatos)
 
@@ -24,7 +30,7 @@ Bem-vindo à documentação da API do Labook! A API labook-backend foi projetada
 
 ---
 ## Documentação Postaman
-- #### [Link](https://documenter.getpostman.com/view/26586405/2s9Y5YR2Tz)
+- #### [Link](https://documenter.getpostman.com/view/26586405/2s9YJgU11p)
 ## Executando a API
 
 Aqui está um guia passo a passo para executar a API do projeto Labook:
@@ -37,20 +43,17 @@ Clone este repositório para o seu ambiente local:
 # Clone este repositório
 $ git clone https://github.com/WeslleiBrito/projeto-labook-backend.git
 ```
-
 ### 2. Configurando o Arquivo .env
 
 1. Na raiz do projeto (`project-integrator-labeddit/`), crie um arquivo chamado `.env`.
 2. Abra o arquivo `env.exemplo` que está na raiz do projeto e copie todas as variáveis de ambiente.
 3. Cole as variáveis de ambiente no arquivo `.env` que você criou.
 4. Configure a variável `JWT_KEY` com uma senha forte para encriptação de tokens.
-
 ### 3. Criação e Configuração do Banco de Dados
 
 1. Dentro da pasta `project-integrator-labeddit/src/database`, crie um arquivo chamado `database.db` se ele ainda não existir.
 2. Conecte-se ao banco de dados. É recomendado o uso da extensão MySQL da Weijan Chen para esta etapa.
 3. No arquivo `database.sql`, você encontrará todas as queries de criação das tabelas necessárias. Execute todas elas no seu banco de dados.
-
 ### 4. Instalando Dependências e Iniciando a API
 
 1. Abra um terminal e navegue até a pasta do projeto (`project-integrator-labeddit/`).
@@ -73,21 +76,17 @@ Agora, a API do Labeddit está em execução e você pode acessar os endpoints a
 Certifique-se de seguir cada etapa cuidadosamente para garantir o correto funcionamento da API. Se você encontrar algum problema ou tiver dúvidas, sinta-se à vontade para buscar ajuda na equipe de suporte.
 
 ---
-
 ## Detalhes do Servidor
 
 - **URL Base**: `http://localhost:3003`
 
 ---
-
 ## Autenticação
 
 Antes de acessar os endpoints protegidos, você deve estar autenticado. Para fazer isso, primeiro você precisa criar uma conta usando o endpoint `signup` e, em seguida, usar suas credenciais para fazer login através do endpoint `login`. Isso fornecerá um token de autenticação que você deve incluir nos cabeçalhos de solicitação das operações protegidas.
 
 ---
-
 ## Endpoints
-
 ### 1. Signup: `[POST] /users/signup`
 
 Cria uma nova conta de usuário.
@@ -128,8 +127,50 @@ Output:
   "token": "um token jwt"
 }
 ```
+### 3. Edit Account: `[PUT] /users/account/:id`
+Edita o nome ou a senha do usuário.
 
-### 3. Create post: `[POST] /posts`
+**Cabeçalhos [headers]:**
+- `headers.authorization = "token jwt"`
+
+**Parâmetros [params]:**
+- `params.id = "id"`
+
+**Corpo da Solicitação [body]:**
+
+Input:
+```json
+{
+    "name": "novo nome [opcional]",
+    "password": "nova senha [opcional]"
+}
+```
+Output: 
+
+```json
+{
+    "message": "Editado com sucesso!"
+}
+```
+### 4. Delete Account: `[PUT] /users/account/:id`
+
+Exclui a conta de um usuário
+
+__*Observação: Apenas o proprietário da conta ou usuários admin e master podem deletar uma conta, sendo que admin não pode deletar o conta de outro usuário admin ou master.*__
+
+**Cabeçalhos [headers]:**
+- `headers.authorization = "token jwt"`
+
+**Parâmetros [params]:**
+- `params.id = "id"`
+
+Output:
+```json
+{
+    "message": "Conta deletada com sucesso!"
+}
+```
+### 5. Create post: `[POST] /posts`
 
 Cria um novo post.
 
@@ -149,7 +190,7 @@ Output:
   "message": "Post criado com sucesso!"
 }
 ```
-### 4. Edit post: `[PUT] /posts/:id`
+### 6. Edit post: `[PUT] /posts/:id`
 
 Edita um post existente.
 
@@ -174,7 +215,7 @@ Output:
   "message": "Post editado com sucesso!"
 }
 ```
-### 5. Delete post: `[DELETE] /posts/:id`
+### 7. Delete post: `[DELETE] /posts/:id`
 
 Exclui um post existente.
 
@@ -194,8 +235,7 @@ Output:
   "message": "Post deletado com sucesso!"
 }
 ```
-
-### 6. Like or dislike [Post]: `[POST] /posts/:id/like`
+### 8. Like or dislike [Post]: `[POST] /posts/:id/like`
 
 Curtir ou descurtir uma postagem.
 
@@ -240,52 +280,7 @@ Ou:
   "message": "Dislike criado com sucesso."
 }
 ```
-### 7. Like or dislike [Comment]: `[POST] /comments/:id/like`
-
-Curtir ou descurtir uma postagem.
-
-__*Observações:*__
-
-__*Curtir = `true`, descurtir = `false`.*__
-__*Quem criou o comentário não pode dar like ou dislike no mesmo.*__
-__*Caso dê um like em um comentário que já tenha dado like, o like é desfeito.*__
-__*Caso dê um dislike em um comentário que já tenha dado dislike, o dislike é desfeito.*__
-__*Caso dê um like em um comentário que tenha dado dislike, o like sobrescreve o*__ __*dislike.*__
-__*Caso dê um dislike em um comentário que tenha dado like, o dislike sobrescreve o like.*__
-
-**Cabeçalhos [headers]:**
-- `headers.authorization = "token jwt"`
-
-**Parâmetros [params]**
-- `params.id = "id"`
-
-**Corpo da Solicitação [body]:**
-Input:
-```json
-{
-  "like": true
-}
-```
-Ou:
-```json
-{
-    "like": false
-}
-```
----
-Output:
-```json
-{
-  "message": "Like criado com sucesso."
-}
-```
-Ou:
-```json
-{
-  "message": "Dislike criado com sucesso."
-}
-```
-### 8. Get Post: `[Get] /posts`
+### 9. Get Post: `[Get] /posts`
 
 Devolve todos os post existentes.
 __*Observação: Um post é retornado com todos os comentários relacionado ele e os comentários dos comentários que pertensão ao post.*__
@@ -505,8 +500,7 @@ Output:
     }
 ]
 ```
-
-### 9. Create Comment `[Post] /comment/post/:id`
+### 10. Create Comment `[Post] /comment/post/:id`
 
 Faz um comentário em um post.
 
@@ -533,8 +527,7 @@ __*Observação: O id que será informado através do "params" é o id do post a
   "message": "Comentário criado com sucesso!"
 }
 ```
-
-### 10. Edit Comment: `[PUT] /comment/:id`
+### 11. Edit Comment: `[PUT] /comment/:id`
 
 Edita um comentário existente.
 
@@ -560,8 +553,7 @@ Output:
   "message": "Comentário editado com sucesso!"
 }
 ```
-
-### 11. Delete Comment: `[DELETE] /comment/:id`
+### 12. Delete Comment: `[DELETE] /comment/:id`
 
 Exclui um comentário existente.
 
@@ -581,8 +573,7 @@ Output:
   "message": "Comentário deletado com sucesso!"
 }
 ```
-
-### 12. Get Comments: `[Get] /comment` 
+### 13. Get Comments: `[Get] /comment` 
 
 Devolve todos os comentário existentes.
 
@@ -729,8 +720,53 @@ Output:
     }
 ]
 ```
+### 14. Like or dislike [Comment]: `[POST] /comments/:id/like`
+
+Curtir ou descurtir um comentário.
+
+__*Observações:*__
+
+__*Curtir = `true`, descurtir = `false`.*__
+__*Quem criou o comentário não pode dar like ou dislike no mesmo.*__
+__*Caso dê um like em um comentário que já tenha dado like, o like é desfeito.*__
+__*Caso dê um dislike em um comentário que já tenha dado dislike, o dislike é desfeito.*__
+__*Caso dê um like em um comentário que tenha dado dislike, o like sobrescreve o*__ __*dislike.*__
+__*Caso dê um dislike em um comentário que tenha dado like, o dislike sobrescreve o like.*__
+
+**Cabeçalhos [headers]:**
+- `headers.authorization = "token jwt"`
+
+**Parâmetros [params]**
+- `params.id = "id"`
+
+**Corpo da Solicitação [body]:**
+Input:
+```json
+{
+  "like": true
+}
+```
+Ou:
+```json
+{
+    "like": false
+}
+```
+---
+Output:
+```json
+{
+  "message": "Like criado com sucesso."
+}
+```
+Ou:
+```json
+{
+  "message": "Dislike criado com sucesso."
+}
+```
 ## Pessoas Autoras
-![foto](./src/assets/photos/foto.png)
+![foto](./src/assets/img/foto.png)
 ```
 ```
 ## Contatos
