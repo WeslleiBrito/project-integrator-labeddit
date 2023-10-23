@@ -11,6 +11,7 @@ export class Post {
         private amountComments: number,
         private createdAt: string,
         private updatedAt: string,
+        private userInteractions: Array<{userId: string, interaction: number}>,
         private comments: CommentModel[]
     ){}
 
@@ -63,6 +64,7 @@ export class Post {
                 id: this.creator.id,
                 name: this.creator.name
             },
+            userInteractions: this.userInteractions,
             like: this.like,
             dislike: this.dislike,
             amountComments: this.amountComments,
@@ -96,5 +98,6 @@ export interface PostModel {
         id: string,
         name: string
     }
+    userInteractions: Array<{userId: string, interaction: number}>
     comments: CommentModel[]
 }

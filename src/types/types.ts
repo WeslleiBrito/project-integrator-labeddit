@@ -85,3 +85,8 @@ export interface LikeDislikeCommentDB {
     like: 0 | 1
 }
 
+export interface likeDislike {
+    userId: string,
+    postId: string,
+    like: number
+}

@@ -13,6 +13,7 @@ import { Post} from "../models/Post";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
 import { CommentDB, USER_ROLES, UserDB} from "../types/types";
+import { LikeDislikePostDatabase } from "../database/LikeDislikePostDatabase";
 
 
 
@@ -22,6 +23,7 @@ export class PostBusiness {
         private postDatabase: PostDatabase,
         private commentDatabase: CommentDatabase,
         private userDatabase: UserDatabase,
+        private likeDislikeDatabase: LikeDislikePostDatabase,
         private tokenManager: TokenManager,
         private idGenerator: IdGenerator
     ){}
@@ -110,7 +112,12 @@ export class PostBusiness {
         }
     }
 
+    private likesDislikes = async () => { 
+        return await this.likeDislikeDatabase.getLikes()
+    }
+
     private mapComment = (commentDB: CommentDB): CommentModel => {
+           
         return {
             id: commentDB.id,
             idUser: commentDB.id_user,
@@ -164,10 +171,16 @@ export class PostBusiness {
         const comment = await this.commentDatabase.getComments()
         const agroupComments = this.groupsComments(comment)
         const posts = await this.postDatabase.getPosts()
-
+        const likesDislikes = await this.likeDislikeDatabase.getLikes()
+        
         const result = posts.map(post => {
 
             const comment = agroupComments.filter(comm => comm.postId === post.id)
+
+            const interactions = likesDislikes.filter(item => {
+
+                return item.post_id === post.id
+            })
 
             return new Post(
                 post.id,
@@ -178,6 +191,12 @@ export class PostBusiness {
                 comment.length,
                 post.created_at,
                 post.updated_at,
+                interactions.map(interaction => {
+                    return {
+                        userId: interaction.user_id,
+                        interaction: interaction.like
+                    }
+                }),
                 comment
             ).getPostModel()
         })

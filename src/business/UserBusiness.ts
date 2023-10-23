@@ -96,7 +96,8 @@ export class UserBusiness implements UserBusinessI{
         )
         
         return {
-            token
+            token,
+            idUser: account.id
         }
 
     }
