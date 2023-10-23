@@ -18,3 +18,4 @@ const newLikeDislikePostController = new LikeDislikePostController(
 
 
 likeDislikePostRouter.post('/:id/like', newLikeDislikePostController.likeDislike)
+likeDislikePostRouter.get('/likes', newLikeDislikePostController.getLikeDislikes)

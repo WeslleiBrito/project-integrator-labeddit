@@ -1,5 +1,6 @@
 import { LikeDislikePostDatabase } from "../database/LikeDislikePostDatabase";
 import { PostDatabase } from "../database/PostDatabase";
+import { InputGetLikeDislikeDTO, OutputGetLikeDislikeDTO } from "../dtos/likeDislikePosts/InputGetLikeDislike.dto";
 import { InputLikeDislikePostDTO, OutputLikeDislikePostDTO } from "../dtos/likeDislikePosts/InputLikeDislikePost.dto";
 import { BadRequestError } from "../errors/BadRequestError";
 import { NotFoundError } from "../errors/NotFoundError";
@@ -83,5 +84,28 @@ export class LikeDislikePostBusiness {
         
         
         return output
+    }
+
+    public getLikes = async (input: InputGetLikeDislikeDTO): Promise<OutputGetLikeDislikeDTO> => {
+        const {token} = input
+
+        const tokenIsValid = this.tokenManager.validateToken(token)
+
+        if(!tokenIsValid){
+            throw new BadRequestError("Refaça o login, para renovar seu token.")
+        }
+
+        const result = await this.likeDislikePostDatabase.getLikes()
+        
+        return result.map(item => {
+            const {user_id, post_id, like} = item
+
+            return{
+                userId: user_id, 
+                postId: post_id,
+                like
+            }
+        })
+
     }
 }
