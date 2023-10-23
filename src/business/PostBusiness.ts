@@ -177,6 +177,11 @@ export class PostBusiness {
 
             const comment = agroupComments.filter(comm => comm.postId === post.id)
 
+            const interactions = likesDislikes.filter(item => {
+
+                return item.post_id === post.id
+            })
+
             return new Post(
                 post.id,
                 {id: post.user_id, name: post.name_user},
@@ -186,6 +191,12 @@ export class PostBusiness {
                 comment.length,
                 post.created_at,
                 post.updated_at,
+                interactions.map(interaction => {
+                    return {
+                        userId: interaction.user_id,
+                        interaction: interaction.like
+                    }
+                }),
                 comment
             ).getPostModel()
         })
