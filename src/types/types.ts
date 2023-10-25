@@ -54,7 +54,11 @@ export interface CommentDB {
     dislike: number,
     created_at: string,
     updated_at: string,
-    answer?: CommentDB[]
+    answer?: CommentDB[],
+    user_interactions?: Array<{
+        user_id: string,
+        like: number
+    }> 
 }
 
 export interface InputCommentDB {
@@ -82,7 +86,7 @@ export interface LikeDislikePostDB {
 export interface LikeDislikeCommentDB {
     user_id: string
     comment_id: string
-    like: 0 | 1
+    like: number
 }
 
 export interface likeDislike {
