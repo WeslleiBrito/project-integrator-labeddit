@@ -6,6 +6,7 @@ import { TokenManager } from "../services/TokenManager"
 import { PostDatabase } from "../database/PostDatabase"
 import { IdGenerator } from "../services/IdGenerator"
 import { UserDatabase } from "../database/UserDatabase"
+import { LikeDislikeCommentDatabase } from "../database/LikeDislikeCommentDatabase"
 
 export const commentRouter = express.Router()
 
@@ -15,7 +16,8 @@ const newCommentController = new CommentController(
         new UserDatabase(),
         new TokenManager(),
         new PostDatabase(),
-        new IdGenerator()
+        new IdGenerator(),
+        new LikeDislikeCommentDatabase()
     )
 )
 

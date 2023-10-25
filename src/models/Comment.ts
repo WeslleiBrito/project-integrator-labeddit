@@ -13,7 +13,8 @@ export class Comment {
         private updatedAt: string,
         private like: number,
         private dislike: number,
-        private answers: CommentModel[]
+        private answers: CommentModel[],
+        private userInteractions: Array<{userId: string, like: number}>
     ){}
 
     public getCommentModel = (): CommentModel => {
@@ -29,7 +30,8 @@ export class Comment {
             updatedAt: this.updatedAt,
             like: this.like,
             dislike: this.dislike,
-            answers: this.answers
+            answers: this.answers,
+            userInteractions: this.userInteractions
         }
     }
 
@@ -97,6 +99,9 @@ export class Comment {
         return this.answers
     }
 
+    public getUserInteractions = (): {userId: string, like: number}[] => {
+        return this.userInteractions
+    }
 }
 
 export interface CommentModel {
@@ -110,5 +115,11 @@ export interface CommentModel {
         updatedAt: string,
         like: number,
         dislike: number,
-        answers: CommentModel[]
+        answers: CommentModel[],
+        userInteractions: Array<
+            {
+                userId: string,
+                like: number
+            }
+        >
 }

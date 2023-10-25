@@ -12,8 +12,9 @@ import { CommentModel } from "../models/Comment";
 import { Post} from "../models/Post";
 import { IdGenerator } from "../services/IdGenerator";
 import { TokenManager } from "../services/TokenManager";
-import { CommentDB, USER_ROLES, UserDB} from "../types/types";
+import { CommentDB, LikeDislikeCommentDB, USER_ROLES, UserDB} from "../types/types";
 import { LikeDislikePostDatabase } from "../database/LikeDislikePostDatabase";
+import { LikeDislikeCommentDatabase } from "../database/LikeDislikeCommentDatabase";
 
 
 
@@ -25,7 +26,8 @@ export class PostBusiness {
         private userDatabase: UserDatabase,
         private likeDislikeDatabase: LikeDislikePostDatabase,
         private tokenManager: TokenManager,
-        private idGenerator: IdGenerator
+        private idGenerator: IdGenerator,
+        private likeDislikeCommentDatabase: LikeDislikeCommentDatabase
     ){}
     
     public createPost = async (input: InputPostDTO): Promise<OutputPostDTO> => {
@@ -112,9 +114,6 @@ export class PostBusiness {
         }
     }
 
-    private likesDislikes = async () => { 
-        return await this.likeDislikeDatabase.getLikes()
-    }
 
     private mapComment = (commentDB: CommentDB): CommentModel => {
            
@@ -130,16 +129,24 @@ export class PostBusiness {
             dislike: commentDB.dislike,
             amountComment: commentDB.answer ? commentDB.answer.length : 0,
             answers: (commentDB.answer || []).map(this.mapComment),
+            userInteractions: commentDB.user_interactions as Array<{userId: string, like: number}> | []
         };
     };
 
-    private groupsComments = (comments: CommentDB[], parentId: string | null = null): CommentModel[] => {
+    private groupsComments = (comments: CommentDB[], interactions: LikeDislikeCommentDB[], parentId: string | null = null): CommentModel[] => {
         const result: CommentModel[] = []
 
         for (const comment of comments) {
             if (comment.parent_comment_id === parentId){
-                const children = this.groupsComments(comments, comment.id)
+                const children = this.groupsComments(comments, interactions, comment.id)
                 const commentModel = this.mapComment(comment)
+
+                commentModel.userInteractions = interactions.filter(interaction => interaction.comment_id === comment.id).map(item => {
+                    return {
+                        userId: item.user_id,
+                        like: item.like
+                    }
+                })
 
                 if (children.length > 0) {
 
@@ -169,7 +176,8 @@ export class PostBusiness {
         }
 
         const comment = await this.commentDatabase.getComments()
-        const agroupComments = this.groupsComments(comment)
+        const interactions = await this.likeDislikeCommentDatabase.getLikes()
+        const agroupComments = this.groupsComments(comment, interactions)
         const posts = await this.postDatabase.getPosts()
         const likesDislikes = await this.likeDislikeDatabase.getLikes()
         
