@@ -3,10 +3,11 @@
 ## Sumário de Navegação
 1. [Resumo](#resumo)
 2. [Documentação Postman](#documentação-postaman)
-3. [Executando a API](#executando-a-api)
-4. [Detalhes do Servidor](#detalhes-do-servidor)
-5. [Autenticação](#autenticação)
-6. [Endpoints](#endpoints)
+3. [Front-end](#front-end)
+4. [Executando a API](#executando-a-api)
+5. [Detalhes do Servidor](#detalhes-do-servidor)
+6. [Autenticação](#autenticação)
+7. [Endpoints](#endpoints)
     - <a href="#1-signup-post-userssignup">POST /signup</a>
     - <a href="#2-login-post-userslogin">POST /login</a>
     - <a href="#3-edit-account-put-usersaccountid">PUT /edit-account</a>
@@ -21,8 +22,8 @@
     - <a href="#12-delete-comment-delete-commentid">DELETE /delete-comment</a>
     - <a href="#13-get-comments-get-comment">GET /get-comment</a>
     - <a href="#14-like-or-dislike-comment-post-commentsidlike">POST /get-posts-comments</a>
-7. [Pessoas autoras](#pessoas-autoras)
-8. [Contatos](#contatos)
+8. [Pessoas autoras](#pessoas-autoras)
+9. [Contatos](#contatos)
 
 ## Resumo
 Bem-vindo à documentação da API do Labook! A API labook-backend foi projetada para fornecer um ambiente de comunicação com um banco de dados por meio de seus endpoints exclusivos. Inspirada no conceito de rede social, esta API permite que qualquer pessoa se cadastre, crie posts e interaja com as publicações de outros usuários de forma intuitiva e segura.
@@ -31,6 +32,10 @@ Bem-vindo à documentação da API do Labook! A API labook-backend foi projetada
 ---
 ## Documentação Postaman
 - #### [Link](https://documenter.getpostman.com/view/26586405/2s9YJgU11p)
+
+## Front-end
+- #### [Link](https://main.d1gu6j01wnb25f.amplifyapp.com/)
+
 ## Executando a API
 
 Aqui está um guia passo a passo para executar a API do projeto Labook:
@@ -87,6 +92,11 @@ Antes de acessar os endpoints protegidos, você deve estar autenticado. Para faz
 
 ---
 ## Endpoints
+
+### Base Url para requisições a API
+
+* #### https://project-integrator-labeddit.onrender.com
+
 ### 1. Signup: `[POST] /users/signup`
 
 Cria uma nova conta de usuário.
